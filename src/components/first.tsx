@@ -7,7 +7,7 @@ import { MdContentCopy } from "react-icons/md";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-yellow-100">
+    <div className="min-h-screen bg-[#fef9c2ba]">
       <Head>
         <title>Solzio Cat - The Purr-fect Coin for Crypto Enthusiasts</title>
         <link rel="icon" href="/favicon.ico" />
@@ -38,9 +38,10 @@ export default function Home() {
 
       </header>
 
-      <main className="container mx-auto px-4 py-12">
+      <main className="container mx-auto px-4 py-12 z-10 relative">
 
            <div className='text-center'>
+
             
             <h1 className="text-6xl font-bold mb-4 ">
               <span className='text-yellow-500  text-stroke-black text-shadow-black text-bold'>
@@ -50,8 +51,15 @@ export default function Home() {
 
               <br />
               <span className="text-black ">for Crypto Enthusiasts</span>
+
+              <h1 className="text-black/10 text-8xl sm:text-9xl md:text-[250px] font-bold font-['Neuton'] absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/4 z-0 opacity-50 pt-[180px]">$SOLZIO</h1>
              
             </h1>
+
+
+
+
+
 
            </div>
 
