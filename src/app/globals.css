@@ -22,3 +22,17 @@ body {
     -1px 1px 0 #000,
     1px 1px 0 #000;
 }
+
+.text-stroke-white {
+  -webkit-text-stroke: 1px white;
+  text-stroke: 1px white;
+}
+
+.text-shadow-white {
+  text-shadow: 
+    2px 2px 0 #000,
+    -1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+}
