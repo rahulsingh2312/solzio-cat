@@ -1,34 +1,40 @@
 import React from 'react'
+import Image from 'next/image'
 
 export default function ResponsiveSolzioLayout() {
   return (
-
-    <div className="min-h-screen bg-[#ffdd75] bg-[url('/bg2.png')] bg-cover bg-center ">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="relative mb-8">
-
+    <div className="min-h-screen bg-[#ffdd75] bg-[url('/bg2.png')] bg-cover bg-center overflow-hidden">
+      <div className="max-w-full mx-auto px-0 py-8">
+        <div className="relative mb-8 px-4">
           <h1 className="text-center text-4xl md:text-5xl leading-tight">
             <span className="text-black">Coins </span>
-            <span className='text-white/80  text-stroke-black text-shadow-black text-bold'>
-                dissappear
-              </span>
+            <span className='text-white/80 text-stroke-black text-shadow-black text-bold'>
+              dissappear
+            </span>
             <span className="text-black"> like catnaps!</span>
           </h1>
-          <img className="w-24 h-24 absolute -top-8 -left-4 md:left-0" src="" alt="Coin icon" />
+          <Image width={100} height={100} alt='catsleeping' className="w-24 h-24 absolute -top-8 left-4" src="/catsleeping.png" />
         </div>
+        
 
-
-        <div className="w-[1131px] text-center"><span className=" text-black text-[46px] font-bold  leading-[62.10px]">Every 4 days, $SOLZIO supply gets a catnip cut—way faster than </span><span className="text-[#dc590f] text-[46px]  leading-[62.10px]">Bitcoin's</span><span className="text-black text-[46px]  leading-[62.10px]"> sleepy 4-year cycle!</span></div>
-
-        <div className="flex flex-col md:flex-row  items-center px-0 ">
-          <img className="pl-0 w-full md:w-1/3 h-auto " src="/Photo_Cat.png" alt="SOLZIO illustration 1" />
+        
+        <div className="text-center px-4 mb-8">
+          <span className="text-white text-3xl md:text-4xl font-bold leading-relaxed  text-shadow-white">
+            Every 4 days, $SOLZIO supply gets a catnip cut—way 
+            <br />
+            faster than 
+            <span className="text-[#dc590f] "> Bitcoin's</span> sleepy 4-year cycle!
+          </span>
+        </div>
+        
+        <div className="flex flex-col md:flex-row items-center justify-between">
+          <Image width={300} height={300} className="hidden md:block w-[200px] md:w-[400px] h-auto object-contain md:object-cover" src="/Photo_Cat.png" alt="SOLZIO illustration 1" />
           
-          <div className="w-full md:w-1/3 text-justify text-black/80 text-lg font-normal font-['Poppins']">
-
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae ullam ipsum rerum autem, deleniti fugiat numquam et laboriosam dolorum ad odio sit. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae ullam ipsum rerum autem, deleniti fugiat numquam et laboriosam dolorum ad odio sit.
+          <div className="w-full md:w-1/3 text-justify text-black/80 text-lg  font-poppins py-8 md:py-0">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae ullam ipsum rerum autem, deleniti fugiat numquam et laboriosam dolorum ad odio sit. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae ullam ipsum rerum autem, deleniti fugiat numquam et laboriosam dolorum ad odio sit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae ullam ipsum rerum autem, deleniti fugiat numquam et laboriosam dolorum ad odio sit. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae ullam ipsum rerum autem, deleniti fugiat numquam et laboriosam dolorum ad odio sit. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae ullam ipsum rerum autem, deleniti fugiat numquam et laboriosam dolorum ad odio sit. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae ullam ipsum rerum autem, 
           </div>
           
-          <img className="pr-0 w-full md:w-1/3 h-auto " src="/Photo_Cat2.png" alt="SOLZIO illustration 2" />
+          <Image width={300} height={300} className="hidden md:block w-[200px] md:w-[400px] h-auto object-contain md:object-cover" src="/Photo_Cat2.png" alt="SOLZIO illustration 2" />
         </div>
       </div>
     </div>

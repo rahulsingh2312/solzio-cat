@@ -36,3 +36,12 @@ body {
     -1px 1px 0 #000,
     1px 1px 0 #000;
 }
+
+.font-poppins {
+   font-family: var(--font-poppins);
+   
+}
+
+.font-comic-neue-regular {
+  font-family: var(--font-comic-neue-regular);
+}

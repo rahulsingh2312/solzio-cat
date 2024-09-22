@@ -117,17 +117,21 @@ const StakeCard = () => (
 );
 
 const SolzioInterface = () => (
-  <div className="bg-yellow-300 min-h-screen">
-    <WarningBanner />
-    <div className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold text-center my-8">Play Smart, Stake Wisely!</h1>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <SwapCard />
-        <AddLiquidityCard />
-        <StakeCard />
-      </div>
-    </div>
+  // <div className="bg-yellow-300 min-h-screen">
+  //   <WarningBanner />
+  //   <div className="container mx-auto p-4">
+  //     <h1 className="text-4xl font-bold text-center my-8">Play Smart, Stake Wisely!</h1>
+  //     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+  //       <SwapCard />
+  //       <AddLiquidityCard />
+  //       <StakeCard />
+  //     </div>
+  //   </div>
+  // </div>
+  <div className=" min-h-screen">
+    <img src="/forth.svg" alt="solzio" />
   </div>
+  
 );
 
 export default SolzioInterface;

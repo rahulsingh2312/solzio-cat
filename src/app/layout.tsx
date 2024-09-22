@@ -9,6 +9,11 @@ const comicNeue = localFont({
 });
 
 
+const regularComicNeue = localFont({
+  src: "./fonts/ComicNeue-Regular.ttf",
+  variable: "--font-comic-neue-regular",
+}); 
+
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
