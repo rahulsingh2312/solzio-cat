@@ -45,3 +45,7 @@ body {
 .font-comic-neue-regular {
   font-family: var(--font-comic-neue-regular);
 }
+
+.font-seriff {
+  font-family: var(--font-serif);
+}
