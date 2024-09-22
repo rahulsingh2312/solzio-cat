@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaExchangeAlt, FaCog } from 'react-icons/fa';
-
+import Image from 'next/image';
 const WarningBanner = () => (
   <div className="bg-yellow-400 text-red-600 p-2 text-center font-bold">
     ⚠️ Warning! Holding without staking is risky. Solzio is a game—play wisely! ⚠️
@@ -117,20 +117,22 @@ const StakeCard = () => (
 );
 
 const SolzioInterface = () => (
-  // <div className="bg-yellow-300 min-h-screen">
-  //   <WarningBanner />
-  //   <div className="container mx-auto p-4">
-  //     <h1 className="text-4xl font-bold text-center my-8">Play Smart, Stake Wisely!</h1>
-  //     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-  //       <SwapCard />
-  //       <AddLiquidityCard />
-  //       <StakeCard />
-  //     </div>
-  //   </div>
-  // </div>
-  <div className=" min-h-screen">
-    <img src="/forth.svg" alt="solzio" />
+  <div className="bg-yellow-300 min-h-screen  bg-[url('/bg2.png')] bg-cover bg-center overflow-hidden">
+    <WarningBanner />
+    <div className="container mx-auto p-4">
+      <h1 className=" text-4xl text-center my-8 font-serif font-semibold">Play Smart <br className=' py-4' /> Stake Wisely!</h1>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <Image width={300} height={300} className="w-[200px] md:w-[400px] h-auto object-contain md:object-cover" src="/four1.svg" alt="solzio" />
+      
+      <Image width={300} height={300} className="w-[200px] md:w-[400px] h-auto object-contain md:object-cover" src="/four2.svg" alt="solzio" />
+      
+      <Image width={300} height={300} className="w-[200px] md:w-[400px] h-auto object-contain md:object-cover" src="/four3.svg" alt="solzio" />
+      </div>
+    </div>
   </div>
+  // <div className=" min-h-screen">
+  //   <img src="/forth.svg" alt="solzio" />
+  // </div>
   
 );
 
