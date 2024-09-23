@@ -21,8 +21,8 @@ export default function Comm({ text, className = '', number }: CardProps) {
        
        
        <div className='flex flex-col gap-4'>
-       <div className="text-3xl font-bold z-20">{text} <div 
-        className="text-base z-20 pt-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias harum Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit, fugit? </div>
+       <div className="text-3xl font-bold  z-20">  <div className='text-black text-shadow-white'>{text}</div>  <div 
+        className="text-base z-20 pt-5 text-black">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias harum Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit, fugit? </div>
          
        
         

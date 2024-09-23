@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Image from 'next/image';
 export default function ResponsiveSolzioDashboard() {
   return (
     <div className="min-h-screen bg-[#fff4d8] overflow-x-hidden">
@@ -12,10 +12,9 @@ export default function ResponsiveSolzioDashboard() {
           <div className="flex flex-col md:flex-row justify-between items-start gap-8">
             <div className="w-full md:w-2/3">
               {/* Placeholder for the chart component */}
-              <div className="bg-gray-800 rounded-lg shadow-lg p-4 h-[500px]">
-                <p className="text-white">Chart placeholder</p>
-                {/* You would replace this with your actual chart component */}
-              </div>
+              
+                <Image src="/body.svg" alt="chart" width={800} height={800} className='object-contain' />
+             
             </div>
 
             <div className="w-[381px] h-[402px] relative">

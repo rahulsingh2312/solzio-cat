@@ -15,14 +15,21 @@ export default function fifthh() {
    <div className='flex gap-12 p-12 justify-center items-center '>
        <div>
        <Card number='01' className='translate-y-<FaSquareXTwitter />
-      6 rotate-[-14deg]' text="Create a wallet"/>
-      <Image src="/arrow5.svg" alt="raydium" width={150} height={150} className='absolute translate-y-[100px] translate-x-[180px] rotate-[-14deg]'/>
+      6 rotate-[-7deg]' text="Create a wallet"/>
+      <Image src="/arrow5.svg" alt="raydium" width={150} height={150} className='absolute translate-y-[50px] translate-x-[140px] rotate-[10deg]'/>
        </div>
+      <div>
+      <Image src="/arrow7.svg" alt="raydium" width={140} height={150} className='absolute translate-x-[160px] translate-y-[130px]   '/>
+      <Card number='02 ' className='translate-y-48  rotate-[6deg] ' text="Get some Sol"/>
      
-      <Card number='02 ' className='translate-y-48  rotate-[10deg] ' text="Get some Sol"/>
+      </div>
+      <div>
+
+      <Card number='03' className='translate-y-6 rotate-[-4deg]' text="Go to Raydium!"/>
+      <Image src="/arrow5.svg" alt="raydium" width={140} height={150} className='absolute translate-x-[160px] translate-y-[80px]   '/>
+      </div>
       
-      <Card number='03' className='translate-y-6 rotate-[-14deg]' text="Go to Raydium!"/>
-      <Card number='04' className='translate-y-48 rotate-[10deg]' text="Get your Share"/>
+      <Card number='04' className='translate-y-48 rotate-[7deg]' text="Get your Share"/>
    </div>
    
 
