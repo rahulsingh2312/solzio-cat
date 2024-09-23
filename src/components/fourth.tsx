@@ -17,7 +17,7 @@ const WarningBanner = () => (
 );
 
 
-const SolzioInterface = () => (
+const Fourth = () => (
   <div className=" min-h-screen  bg-[url('/bg4.png')] bg-cover bg-center bg-opacity-50 overflow-hidden">
     <WarningBanner />
     <div className="container mx-auto p-4">
@@ -43,4 +43,4 @@ const SolzioInterface = () => (
   
 );
 
-export default SolzioInterface;
+export default Fourth;

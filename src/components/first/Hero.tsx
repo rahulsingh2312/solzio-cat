@@ -1,75 +1,16 @@
-"use client"
+import Image from 'next/image'
+import { MdContentCopy } from 'react-icons/md'
 
-import Head from 'next/head';
-import Image from 'next/image';
-import { MdContentCopy } from "react-icons/md";
-import { useState } from 'react';
+export default function Hero() {
 
 
-
-export default function Home() {
-
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-
-  const copyAddress = () => {
+ const copyAddress = () => {
     navigator.clipboard.writeText('56SDQBD*********PX1PUMP');
     alert('Address copied to clipboard');
-  };
+ }; 
 
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-[#ffdd75d4] via-[#fef9c2ba] to-[#fef9c2ba]">
-      <Head>
-        <title>Solzio Cat - The Purr-fect Coin for Crypto Enthusiasts</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <header className="">
-
-
-
-        <nav className='bg-yellow-300 lg:bg-transparent flex justify-between items-center px-2'>
-
-          <div className="text-black">
-            <Image
-              width={150}
-              height={100}
-              src="/logo.png"
-              className="pl-14 h-20"
-              alt="Solzio Cat"
-            />
-          </div>
-
-          <div className="lg:hidden">
-
-            <button className="text-black text-2xl" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              ☰
-            </button>
-
-          </div>
-
-
-          <ul className={`text-black text-2xl lg:flex lg:space-x-10 ${isMenuOpen ? 'block bg-yellow-300' : 'hidden'} lg:block`}>
-            <li><a href="#" className="hover:text-amber-500 block py-2 lg:py-0">Home</a></li>
-            <li><a href="#" className="hover:text-amber-500 block py-2 lg:py-0">About</a></li>
-            <li><a href="#" className="hover:text-amber-500 block py-2 lg:py-0">Price</a></li>
-            <li><a href="#" className="hover:text-amber-500 block py-2 lg:py-0">Buy</a></li>
-          </ul>
-
-
-          <button className='mt-1 shadow-xl mr hidden lg:block'>
-            <div className="w-[167px] h-11 px-3 py-[5px] bg-[#ffc43b] rounded-xl justify-center items-center gap-2.5 inline-flex ">
-              <div className="text-black text-xl font-normal font-['Comic Neue'] ">Connect Wallet</div>
-            </div>
-          </button>
-
-
-        </nav>
-
-
-      </header>
-
-      <main className="container mx-auto px-4 py-12 z-10 relative">
+    return (
+        <main className="container mx-auto px-4 py-12 z-10 relative">
 
         <div className='text-center'>
 
@@ -159,6 +100,5 @@ export default function Home() {
 
         </div>
       </main>
-    </div>
-  );
+    )
 }

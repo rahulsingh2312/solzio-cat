@@ -19,7 +19,7 @@ export default function ResponsiveSolzioLayout() {
 
         
         <div className="text-center px-4 mb-8">
-          <span className="text-white text-3xl md:text-4xl font-bold leading-relaxed  text-shadow-white">
+          <span className="text-white text-3xl md:text-4xl font-bold leading-relaxed  text-shadow-black">
             Every 4 days, $SOLZIO supply gets a catnip cut—way 
             <br />
             faster than 
