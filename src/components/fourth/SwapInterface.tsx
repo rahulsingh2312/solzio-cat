@@ -11,13 +11,13 @@ const SwapInterface = ({className}:{className : String}) => {
   const [solzioAmount, setSolzioAmount] = useState('0.00');
 
   return (
-    <div className={`bg-yellow-200 h-[400px] w-[300px]  rounded-lg max-w-m ${className}`} >
+    <div className={`bg-yellow-200 h-[548px] w-[300px] border-2 border-black rounded-lg max-w-m ${className}`} >
  
       <h1 className="text-2xl font-bold text-center mb-4 pt-4">BUY $SOLZIO</h1>
       
-      <div className="bg-white rounded-lg p-4">
+      <div className="bg-white border-t-2 border-black rounded-lg p-4">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Swap</h2>
+          <h2 className="text-xl font-semibold">Swap </h2>
           <Settings className="text-gray-500" />
         </div>
         
@@ -43,7 +43,7 @@ const SwapInterface = ({className}:{className : String}) => {
         </div>
         
         <div className="flex justify-center my-2">
-          <div className="bg-yellow-300 p-2 rounded-full ">
+          <div className="bg-yellow-300  p-2 rounded-full ">
           <CgSwapVertical className="w-10 h-10" />
 
           </div>
@@ -62,7 +62,7 @@ const SwapInterface = ({className}:{className : String}) => {
               className="text-2xl bg-transparent w-1/2 outline-none"
               placeholder="0.00"
             />
-            <button className="flex items-center bg-gray-200 border-black border-2  px-3 py-1 rounded-full">
+            <button className="flex items-center  bg-gray-200 border-black border-2  px-3 py-1 rounded-full">
             <FaBitcoin className="mr-1  " />
             PONZIO
               <ChevronDown className="ml-1" />

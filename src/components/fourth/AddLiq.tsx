@@ -2,11 +2,11 @@ import React from 'react';
 import WalletButton from '@/components/wallets/WalletButton';
 const AddLiquidity = () => {
   return (
-    <div className="bg-yellow-200 mt-8  rounded-lg max-w-md mx-auto">
+    <div className="bg-yellow-200 mt-8 border-2 border-black rounded-lg max-w-md mx-auto">
     
       <h1 className="text-2xl font-bold text-center pt-4 mb-4">ADD LIQUIDITY</h1>
       
-      <div className="bg-white rounded-lg p-4 shadow-md">
+      <div className="bg-white border-t-2 border-black rounded-lg p-4 shadow-md">
         <div className="flex justify-between items-center px-4 mb-2">
           <span className="font-semibold pr-24">MY LP TOKENS</span>
           <div className="text-right">

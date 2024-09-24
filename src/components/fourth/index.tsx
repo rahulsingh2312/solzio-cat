@@ -23,11 +23,11 @@ const Fourth = () => (
     <div className="container mx-auto p-4">
      
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4   ">
-           <div className="pl-[28px]">
-           <SwapInterface className='justify-center ml-[28px] ' />
+           <div className=" flex justify-center items-center">
+           <SwapInterface className=' ' />
            </div>
 
-       <div className='flex  pt-32 flex-col justify-center items-center'>
+       <div className='flex  md:pt-24 flex-col justify-center items-center'>
 
        <h1 className=" text-6xl text-center font-serif   py-4">Play Smart <br className=' py-4' /> <span className='text-white text-stroke-black text-shadow-black text-bold font-semibold'>
                Stake
