@@ -12,7 +12,7 @@ interface NavItemProps {
 
 const NavItem: React.FC<NavItemProps> = ({ href, children }) => (
   <li>
-    <a href={href} className="block cursor-pointer py-2 hover:text-amber-600 lg:py-0">
+    <a href={href} className="block cursor-pointer py-2 hover:text-amber-600 p-4 lg:py-0">
       {children}
     </a>
   </li>
@@ -49,14 +49,25 @@ const Navbar: React.FC = () => {
         </div>
         
         {/* Desktop Menu */}
-        <div className="hidden lg:block">
-          <ul className="flex space-x-10 text-2xl text-black">
-            {['Home', 'About', 'Price', 'Buy'].map((item) => (
+        <div className="hidden lg:block pt-4 ">
+         <ul className='flex space-x-10 text-2xl text-black'>
+          {['Home', 'About', 'Price', 'Buy'].map((item) => (
               <NavItem key={item} href={`#${item.toLowerCase()}`}>
                 {item}
               </NavItem>
             ))}
+         </ul>
+          
+        <ul className="flex space-x-10 text-2xl text-yellow-200">
+            {['.', '.', '.', '.'].map((item) => (
+              <NavItem key={item} href={`#${item.toLowerCase()}`}>
+                {item}
+              </NavItem>
+            ))}
+          
           </ul>
+        
+        
         </div>
         
         <div className="hidden lg:block">
@@ -67,6 +78,10 @@ const Navbar: React.FC = () => {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="absolute left-0 top-full z-50 w-full bg-yellow-400 px-4 py-4 lg:hidden">
+         
+        
+        
+         
           <ul className="mb-4 space-y-2 text-xl text-black">
             {['Home', 'About', 'Price', 'Buy'].map((item) => (
               <NavItem key={item} href={`#${item.toLowerCase()}`}>
@@ -74,6 +89,7 @@ const Navbar: React.FC = () => {
               </NavItem>
             ))}
           </ul>
+       
           <div className="mb-4">
             <WalletButton />
           </div>

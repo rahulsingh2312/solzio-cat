@@ -48,7 +48,7 @@ export default function ResponsiveSolzioDashboard() {
               <Image src="/body.svg" alt="chart" width={800} height={800} className="object-contain" />
             </div>
             
-            <div className="w-full md:w-1/3 max-w-[381px] pt-24 p-6">
+            <div className="w-full md:w-1/3 max-w-[381px] flex flex-col items-center justify-center pt-24 p-8">
               <PriceBox value="$386,836.44" label="Current Price" />
               
               <div className="mb-8">
