@@ -27,14 +27,14 @@ const Fourth = () => (
            <SwapInterface className=' ' />
            </div>
 
-       <div className='flex  md:pt-24 flex-col justify-center items-center'>
+       <div className='flex mb-4 md:pt-24 flex-col justify-center items-center'>
 
-       <h1 className=" text-6xl text-center font-serif   py-4">Play Smart <br className=' py-4' /> <span className='text-white text-stroke-black text-shadow-black text-bold font-semibold'>
+       <h1 className=" text-6xl text-center font-serif font-medium    py-4">Play Smart , <br className=' py-4' /> <span className='text-black text-stroke text-shadow-white text-bold font-semibold'>
                Stake
               </span> Wisely!</h1>
        
        
-      <AddLiquidity/>
+      <AddLiquidity />
        </div>
      
      <StakeToMakeMoney/>
