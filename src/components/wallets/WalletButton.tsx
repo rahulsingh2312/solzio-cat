@@ -26,7 +26,7 @@ const CustomWalletConnect: React.FC = () => {
   }, [disconnecting])
 
   useLayoutEffect(() => {
-    if (connected) setLabel("Connected 🐱")
+    if (connected) setLabel("Connected ")
     else setLabel('Connect Wallet')
   }, [connected])
 
@@ -34,7 +34,7 @@ const CustomWalletConnect: React.FC = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
      
-           <Button className="  hover:bg-[#cc9e1e]  bg-[#ffc43b] lg:block   mr-4  border-[1px] border-black shadow-4xl rounded-l text-xl  justify-center items-center  "  onClick={() => setVisible(true)}  disabled={label === 'Connecting...'} >
+           <Button className="  hover:bg-slate-800 border-b-2 border-slate-700 text-white font-light  bg-black lg:block   mr-4  border-[1px]  shadow-4xl rounded-l text-xl pb-3 lg:pb-3 justify-center items-center  "  onClick={() => setVisible(true)}  disabled={label === 'Connecting...'} >
       {label === 'Connecting...' }
       {label}
   
