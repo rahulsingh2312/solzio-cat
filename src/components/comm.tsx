@@ -22,7 +22,7 @@ export default function Comm({ text, className = '', number }: CardProps) {
        
        <div className='flex flex-col gap-4'>
        <div className="text-2xl md:text-3xl font-bold  z-20">  <div className='text-black text-shadow-white'>{text}</div><div 
-        className=" z-20 pt-5 text-black text-sm md:text-xl">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias harum Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit, fugit? </div>
+        className=" z-20 pt-5 text-black text-sm md:text-xl">Join our community and become part of the BaseMillionCat family, where every member contributes to our shared vision of success. Together, we’ll purr our way to new heights, fostering connections and creating opportunities for all! </div>
          
        
         

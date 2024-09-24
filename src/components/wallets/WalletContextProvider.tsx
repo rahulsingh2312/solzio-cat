@@ -1,43 +1,47 @@
+// context/WalletContextProvider.tsx
+"use client"
+import React, { FC, useState, useEffect, createContext, useContext } from 'react';
+import { ethers } from 'ethers';
 
-'use client';
-import React, { FC, useMemo } from 'react';
-import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
-import { UnsafeBurnerWalletAdapter } from '@solana/wallet-adapter-wallets';
-import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { clusterApiUrl } from '@solana/web3.js';
+interface WalletContextType {
+  walletAddress: string | null;
+  connectWallet: () => Promise<void>;
+  disconnectWallet: () => void;
+}
 
-// Default styles that can be overridden by your app
-require('@solana/wallet-adapter-react-ui/styles.css');
+const WalletContext = createContext<WalletContextType | undefined>(undefined);
 
-type Props = {
-  children?: React.ReactNode
-};
+export const WalletProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [walletAddress, setWalletAddress] = useState<string | null>(null);
 
-const WalletContext: FC<Props> = ({ children }) => {
-  // The network can be set to 'devnet', 'testnet', or 'mainnet-beta'.
-  const network = WalletAdapterNetwork.Devnet;
+  const connectWallet = async () => {
+    if (window.ethereum) {
+      try {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        setWalletAddress(accounts[0]);
+      } catch (error) {
+        console.error('Failed to connect wallet:', error);
+      }
+    } else {
+      console.log('Please install MetaMask!');
+    }
+  };
 
-  // You can also provide a custom RPC endpoint.
-  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
-
-  const wallets = useMemo(
-    () => [
-      new UnsafeBurnerWalletAdapter(),
-    ],
-    [network]
-  );
+  const disconnectWallet = () => {
+    setWalletAddress(null);
+  };
 
   return (
-    <ConnectionProvider endpoint={endpoint}>
-      <WalletProvider wallets={wallets} autoConnect>
-        <WalletModalProvider>
-          {children}
-        </WalletModalProvider>
-      </WalletProvider>
-    </ConnectionProvider>
+    <WalletContext.Provider value={{ walletAddress, connectWallet, disconnectWallet }}>
+      {children}
+    </WalletContext.Provider>
   );
 };
 
-export default WalletContext;
-  
+export const useWallet = () => {
+  const context = useContext(WalletContext);
+  if (!context) {
+    throw new Error('useWallet must be used within a WalletProvider');
+  }
+  return context;
+};

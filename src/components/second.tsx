@@ -19,7 +19,7 @@ export default function ResponsiveSolzioLayout() {
         
         <div className="text-center px-4 mb-8">
           <span className="text-white text-2xl md:text-4xl font-bold leading-relaxed  text-shadow-black ">
-            Every 4 days, $SOLZIO supply gets a catnip cut—way 
+            Every 4 days, $BMC supply gets a catnip cut—way 
             <br />
             faster than 
             <span className="md:text-[#e07f46] text-2xl text-orange-300   "> Bitcoin's</span> sleepy 4-year cycle!
@@ -30,7 +30,7 @@ export default function ResponsiveSolzioLayout() {
           <Image width={300} height={300} className="hidden md:block w-[200px] md:w-[400px] h-auto object-contain md:object-cover" src="/Photo_Cat.png" alt="SOLZIO illustration 1" />
           
           <div className="w-full md:w-1/3 text-justify text-black/80   font-poppins py-8 md:py-0 text-md p-6  md:text-xl">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae ullam ipsum rerum autem, deleniti fugiat numquam et laboriosam dolorum ad odio sit. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae ullam ipsum rerum autem, deleniti fugiat numquam et laboriosam dolorum ad odio sit.Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae ullam ipsum rerum autem, deleniti fugiat numquam et laboriosam dolorum ad odio sit. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae ullam ipsum rerum autem, deleniti fugiat numquam et laboriosam dolorum ad odio sit. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Beatae ullam ipsum rerum autem.
+          Welcome to the world of BaseMillionCat, where every token holds the promise of exponential growth! Our innovative tokenomics ensure that every four days, half of the BaseMillionCat supply is slashed, igniting demand and driving prices skyward. As a holder, you’ll enjoy lucrative rewards, including an additional 13.37% in tokens just for staking. Join us as we redefine the meme coin landscape. Embark on an adventure that promises not just profits, but a community of true believers. Get ready to pounce on opportunities like never before!
           </div>
           
           <Image width={300} height={300} className="hidden md:block w-[200px] md:w-[400px] h-auto object-contain md:object-cover" src="/Photo_Cat2.png" alt="SOLZIO illustration 2" />

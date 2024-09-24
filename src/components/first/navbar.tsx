@@ -26,39 +26,34 @@ const Navbar: React.FC = () => {
   }, [])
 
   return (
-    <nav className="flex items-center justify-between bg-yellow-400 px-2 pr-6 text-4xl font-bold lg:bg-transparent gap-x-2 ">
-     <div className='flex items-center gap-x-4'>
-     <div className="flex items-center text-black">
-        <Image
-          src="/logo.png"
-          width={150}
-          height={100}
-          className="h-18 w-32 pl-4 lg:h-20 lg:pl-14"
-          alt="Solzio Cat"
-          priority
-        />
+    <nav className="flex items-center justify-between bg-yellow-400 px-2 pr-6 text-4xl font-bold lg:bg-transparent gap-x-2">
+      <div className='flex items-center gap-x-4'>
+        <div className="flex items-center text-black">
+          <Image
+            src="/logo.png"
+            width={150}
+            height={100}
+            className="h-18 w-32 pl-4 lg:h-20 lg:pl-14"
+            alt="Solzio Cat"
+            priority
+          />
+        </div>
+
+        <button
+          className="text-2xl text-black lg:hidden"
+          onClick={toggleMenu}
+          aria-label="Toggle menu"
+        >
+          ☰
+        </button>
+
+        <div className="items-center justify-center pl-16 md:hidden">
+          <WalletButton />
+        </div>
       </div>
-
-      <button
-        className=" text-2xl text-black lg:hidden"
-        onClick={toggleMenu}
-        aria-label="Toggle menu"
-      >
-        ☰
-      </button>
-
-      <div className="items-center justify-center pl-16 md:hidden">
-        <WalletButton />
-      </div>
-
-
-     </div>
-    
 
       <div className={`w-full lg:block lg:w-auto ${isMenuOpen ? 'block' : 'hidden'}`}>
-        
-        
-      <ul className="mb-4 flex justify-between bg-yellow-400 px-4 pt-6 text-xl text-black lg:flex-row lg:space-x-10 lg:bg-transparent lg:text-2xl">
+        <ul className="mb-4 flex justify-between bg-yellow-400 px-4 pt-6 text-xl text-black lg:flex-row lg:space-x-10 lg:bg-transparent lg:text-2xl">
           {['Home', 'About', 'Price', 'Buy'].map((item) => (
             <NavItem key={item} href={`#${item.toLowerCase()}`}>
               {item}
@@ -66,13 +61,6 @@ const Navbar: React.FC = () => {
           ))}
         </ul>
 
-        <ul className="mb-4 flex justify-between bg-yellow-400 px-4 pt-6 text-xl text-black lg:flex-row lg:space-x-10 lg:bg-transparent lg:text-2xl">
-          {['', '', '', ''].map((item) => (
-            <NavItem key={item} href={`#${item.toLowerCase()}`}>
-              {item}
-            </NavItem>
-          ))}
-        </ul>
       </div>
 
       <div className={`w-full lg:block lg:w-auto ${isMenuOpen ? 'block' : 'hidden'}`}>

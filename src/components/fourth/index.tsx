@@ -9,7 +9,7 @@ const WarningBanner = () => (
 
     <h1 className='flex items-center text-2xl justify-center p-8'>
     <IoIosWarning className='text-red-600 text-3xl' />
-    Warning! Holding without staking is risky. Solzio is a game—play wisely!<IoIosWarning className='text-red-600 text-3xl' />
+    Warning! Holding without staking is risky. BMC is a game—play wisely!<IoIosWarning className='text-red-600 text-3xl' />
     </h1>
   
 

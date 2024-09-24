@@ -1,10 +1,7 @@
-
 "use client"
 import { Button } from "../ui/button"
-import { Loader2, Wallet as WalletIcon } from "lucide-react"
-import { useWallet } from "@solana/wallet-adapter-react"
-import { useLayoutEffect, useState } from "react"
-import { useWalletModal } from "@solana/wallet-adapter-react-ui"
+import { useEffect, useState } from "react"
+import { useWallet } from "./WalletContextProvider" // Adjust the import based on your actual path
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,37 +10,42 @@ import {
 } from "../ui/dropdown-menu"
 
 const CustomWalletConnect: React.FC = () => {
-  const { setVisible } = useWalletModal()
-  const { connecting, connected, disconnect, disconnecting } = useWallet()
+  const { connectWallet, disconnectWallet, walletAddress } = useWallet()
   const [label, setLabel] = useState("Connect Wallet")
+  const [isConnecting, setIsConnecting] = useState(false)
 
-  useLayoutEffect(() => {
-    if (connecting) setLabel("Connecting...")
-  }, [connecting])
+  useEffect(() => {
+    if (walletAddress) {
+      setLabel("Connected 🐱")
+    } else {
+      setLabel("Connect Wallet")
+    }
+  }, [walletAddress])
 
-  useLayoutEffect(() => {
-    if (disconnecting) setLabel("Disconnecting..")
-  }, [disconnecting])
-
-  useLayoutEffect(() => {
-    if (connected) setLabel("Connected 🐱")
-    else setLabel('Connect Wallet')
-  }, [connected])
+  const handleConnect = async () => {
+    setIsConnecting(true)
+    await connectWallet()
+    setIsConnecting(false)
+  }
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-     
-           <Button className="  hover:bg-[#cc9e1e]  bg-[#ffc43b] lg:block   mr-4  border-[1px] border-black shadow-4xl rounded-l text-xl  justify-center items-center  "  onClick={() => setVisible(true)}  disabled={label === 'Connecting...'} >
-      {label === 'Connecting...' }
-      {label}
-  
-  </Button>
+        <Button
+          className="hover:bg-[#cc9e1e] bg-[#ffc43b] lg:block mr-4 border-[1px] border-black shadow-4xl rounded-l text-xl justify-center items-center"
+          onClick={handleConnect}
+          disabled={isConnecting}
+        >
+          {isConnecting ? "Connecting..." : label}
+        </Button>
       </DropdownMenuTrigger>
-      {connected && (
-        <DropdownMenuContent className="flex flex-col ">
+      {walletAddress && (
+        <DropdownMenuContent className="flex flex-col">
           <DropdownMenuItem asChild>
-            <Button  className=" bg-white text-black border-2 border-black  border-b-4 text-base text-destructive justify-start pl-4 pr-12 tracking-wider" onClick={() => disconnect()}>
+            <Button
+              className="bg-white text-black border-2 border-black border-b-4 text-base text-destructive justify-start pl-4 pr-12 tracking-wider"
+              onClick={disconnectWallet}
+            >
               Disconnect
             </Button>
           </DropdownMenuItem>
@@ -54,4 +56,3 @@ const CustomWalletConnect: React.FC = () => {
 }
 
 export default CustomWalletConnect
-  
