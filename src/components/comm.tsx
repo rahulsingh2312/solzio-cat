@@ -26,7 +26,7 @@ export default function Comm({ text, className = '', number }: CardProps) {
           <div className='text-black text-shadow-white'>{text}</div>
           
           <div 
-        className=" z-20  text-black text-sm md:text-xl">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias harum Lorem ipsum dolor sit amet, consectetur adipisicing  </div>
+        className=" z-20  text-black text-sm md:text-xl overflow-x-auto">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias harum Lorem ipsum dolor sit amet, consectetur adipisicing  </div>
          
        
         
