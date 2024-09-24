@@ -31,22 +31,30 @@ export default function Fifth() {
       <Comm number='' className='mt-20 md:mt-80 mb-10 md:mb-20 flex justify-center items-center ' text="Join our Community"/>
      
      
-      <div className='flex flex-col md:flex-row justify-between items-center p-4 md:px-12 bg-black w-full min-h-[120px] text-white'>
+      <div className='flex flex-col md:flex-row justify-between items-center p-0 md:px-12 bg-black w-full md:min-h-[120px] text-white'>
+  {/* Logo on the left */}
+  <div className="flex w-full justify-between items-center">
+    <Image src="/logo.png" alt="raydium" width={100} height={100} className='md:mb-0' />
 
+    {/* Copyright text only visible on mobile */}
+    <p className="text-xs text-white md:hidden pr-10">Copyright @ SOLZIO CAT 2024</p>
+  </div>
 
-        <Image src="/logo.png" alt="raydium" width={100} height={100} className='mb-4 md:mb-0'/>
-        <div className='flex gap-4'>
-          <div className='flex gap-4 border-white border-2 rounded-3xl text-xl md:text-2xl p-2'>
-            <CiMail />
-          </div>
-          <div className='flex gap-4 border-white border-2 rounded-3xl text-xl md:text-2xl p-2'>
-            <FaSquareXTwitter />
-          </div>
-          <div className='flex gap-4 border-white border-2 rounded-3xl text-xl md:text-2xl p-2'>
-            <FaLinkedin />
-          </div>
-        </div>
-      </div>
+  {/* Social icons for desktop */}
+  <div className='hidden md:flex gap-4'>
+    <div className='flex gap-4 border-white border-2 rounded-3xl text-xl md:text-2xl p-2'>
+      <CiMail />
+    </div>
+    <div className='flex gap-4 border-white border-2 rounded-3xl text-xl md:text-2xl p-2'>
+      <FaSquareXTwitter />
+    </div>
+    <div className='flex gap-4 border-white border-2 rounded-3xl text-xl md:text-2xl p-2'>
+      <FaLinkedin />
+    </div>
+  </div>
+
+</div>
+
     </div>
   )
 }
