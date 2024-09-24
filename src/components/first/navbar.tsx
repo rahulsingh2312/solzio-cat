@@ -26,8 +26,9 @@ const Navbar: React.FC = () => {
   }, [])
 
   return (
-    <nav className="flex flex-wrap items-center justify-between bg-yellow-400 px-2 pr-6 text-4xl font-bold lg:bg-transparent">
-      <div className="flex items-center text-black">
+    <nav className="flex items-center justify-between bg-yellow-400 px-2 pr-6 text-4xl font-bold lg:bg-transparent gap-x-2 ">
+     <div className='flex items-center gap-x-4'>
+     <div className="flex items-center text-black">
         <Image
           src="/logo.png"
           width={150}
@@ -39,7 +40,7 @@ const Navbar: React.FC = () => {
       </div>
 
       <button
-        className="p-2 text-2xl text-black lg:hidden"
+        className=" text-2xl text-black lg:hidden"
         onClick={toggleMenu}
         aria-label="Toggle menu"
       >
@@ -49,6 +50,10 @@ const Navbar: React.FC = () => {
       <div className="items-center justify-center pl-16 md:hidden">
         <WalletButton />
       </div>
+
+
+     </div>
+    
 
       <div className={`w-full lg:block lg:w-auto ${isMenuOpen ? 'block' : 'hidden'}`}>
         
