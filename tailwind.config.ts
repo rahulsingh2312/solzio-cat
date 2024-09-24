@@ -11,6 +11,10 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+      }, screens: {
+        '769': '769px',
+        '1200': '1200px',
+
       },
     },
   },

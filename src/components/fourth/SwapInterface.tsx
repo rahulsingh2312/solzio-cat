@@ -72,11 +72,11 @@ const SwapInterface = ({className}:{className : String}) => {
         
         <div className="border-2 border-black rounded-lg p-3 mb-4">
           <div className="flex justify-between mb-1">
-            <span className="text-gray-900 text-xl">Slippage Tolerance</span>
+            <span className="text-gray-900 text-sm">Slippage Tolerance</span>
             <span>%1.00</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-gray-900 text-xl">Minimum received</span>
+            <span className="text-gray-900 text-sm">Minimum received</span>
             <span>0.00 PONZIO</span>
           </div>
         </div>

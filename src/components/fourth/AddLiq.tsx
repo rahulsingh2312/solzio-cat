@@ -3,7 +3,7 @@ import WalletButton from '@/components/wallets/WalletButton';
 const AddLiquidity = () => {
   return (
  
-        <div className=" mt-12 w-full md:w-[460px] text-xl font-sans border-[#bd8400] bg-[#FFD87F] border-4 rounded-lg max-w-m flex-col justify-between items-center mb-4">
+        <div className="769:ml-20 1200:ml-0  mt-12 w-full md:w-[460px] text-xl font-sans border-[#bd8400] bg-[#FFD87F] border-4 rounded-lg max-w-m flex-col justify-between items-center mb-4">
        
         <h1 className="text-2xl font-bold text-center pt-4 mb-4">2. ADD LIQUIDITY</h1>
          <div className='bg-white p-5 border-[#bd8400] border-t-2 rounded-lg shadow-md w-full'>
