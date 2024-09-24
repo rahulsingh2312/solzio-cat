@@ -45,7 +45,7 @@ export default function ResponsiveSolzioDashboard() {
           
           <div className="flex flex-col md:flex-row justify-between items-start gap-8">
             <div className="w-full md:w-2/3">
-              <Image src="/body.svg" alt="chart" width={800} height={800} className="object-contain" />
+              <Image src="/Body.svg" alt="chart" width={800} height={800} className="object-contain" />
             </div>
             
             <div className="w-full md:w-1/3 max-w-[381px] flex flex-col items-center justify-center pt-24 p-8">
