@@ -1,54 +1,80 @@
 'use client'
+
+import React, { useState, useCallback } from 'react'
+import Image from 'next/image'
 import CustomWalletConnect from '@/components/wallets/CustomWalletConnect'
-import React, { useState } from 'react';
-import Image from 'next/image';
-const NavItem = ({ href, children }: { href: string; children: React.ReactNode }) => (
+import WalletButton from '@/components/wallets/WalletButton'
+
+interface NavItemProps {
+  href: string
+  children: React.ReactNode
+}
+
+const NavItem: React.FC<NavItemProps> = ({ href, children }) => (
   <li>
-    <a href={href} className="hover:text-amber-800 block cursor-pointer py-2 lg:py-0">
+    <a href={href} className="block cursor-pointer py-2 hover:text-amber-600 lg:py-0">
       {children}
     </a>
   </li>
-);
+)
 
+const Navbar: React.FC = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-
-export default function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const toggleMenu = useCallback(() => {
+    setIsMenuOpen((prev) => !prev)
+  }, [])
 
   return (
-    <nav className="bg-yellow-400 pr-6 text-4xl font-bold lg:bg-transparent flex flex-wrap justify-between items-center px-2">
-      <div className="text-black flex items-center">
+    <nav className="flex flex-wrap items-center justify-between bg-yellow-400 px-2 pr-6 text-4xl font-bold lg:bg-transparent">
+      <div className="flex items-center text-black">
         <Image
+          src="/logo.png"
           width={150}
           height={100}
-          src="/logo.png"
-          className="pl-4 lg:pl-14 h-18 w-32 lg:h-20"
+          className="h-18 w-32 pl-4 lg:h-20 lg:pl-14"
           alt="Solzio Cat"
+          priority
         />
       </div>
 
       <button
-        className="lg:hidden text-black text-2xl p-2"
+        className="p-2 text-2xl text-black lg:hidden"
         onClick={toggleMenu}
         aria-label="Toggle menu"
       >
         ☰
       </button>
 
-      <div className={`w-full lg:w-auto ${isMenuOpen ? 'block' : 'hidden'} lg:block`}>
-        <ul className="text-black text-xl lg:text-2xl flex justify-between pt-6 px-4 mb-4 lg:flex-row lg:space-x-10 bg-yellow-400 lg:bg-transparent">
-          <NavItem href="#">Home</NavItem>
-          <NavItem href="#">About</NavItem>
-          <NavItem href="#">Price</NavItem>
-          <NavItem href="#">Buy</NavItem>
+      <div className="items-center justify-center pl-16 md:hidden">
+        <WalletButton />
+      </div>
+
+      <div className={`w-full lg:block lg:w-auto ${isMenuOpen ? 'block' : 'hidden'}`}>
+        
+        
+      <ul className="mb-4 flex justify-between bg-yellow-400 px-4 pt-6 text-xl text-black lg:flex-row lg:space-x-10 lg:bg-transparent lg:text-2xl">
+          {['Home', 'About', 'Price', 'Buy'].map((item) => (
+            <NavItem key={item} href={`#${item.toLowerCase()}`}>
+              {item}
+            </NavItem>
+          ))}
+        </ul>
+
+        <ul className="mb-4 flex justify-between bg-yellow-400 px-4 pt-6 text-xl text-black lg:flex-row lg:space-x-10 lg:bg-transparent lg:text-2xl">
+          {['', '', '', ''].map((item) => (
+            <NavItem key={item} href={`#${item.toLowerCase()}`}>
+              {item}
+            </NavItem>
+          ))}
         </ul>
       </div>
 
-      <div className={`w-full lg:w-auto ${isMenuOpen ? 'block' : 'hidden'} lg:block`}>
-      <CustomWalletConnect />
+      <div className={`w-full lg:block lg:w-auto ${isMenuOpen ? 'block' : 'hidden'}`}>
+        <CustomWalletConnect />
       </div>
     </nav>
-  );
+  )
 }
+
+export default Navbar

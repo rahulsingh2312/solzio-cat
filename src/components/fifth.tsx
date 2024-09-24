@@ -8,7 +8,7 @@ import Comm from './comm'
 
 export default function Fifth() { 
   return (
-    <div className='bg-[#f6e9b5] max-w-full min-h-screen bg-opacity-90 bg-cover bg-center bg-[url("/bg5.png")] overflow-hidden'>
+    <div id="roadmap" className='bg-[#f6e9b5] max-w-full min-h-screen bg-opacity-90 bg-cover bg-center bg-[url("/bg5.png")] overflow-hidden'>
       <div className='flex text-4xl md:text-6xl text-black p-4 md:p-8 justify-center items-center'>
         <h1 className='text-stroke-white text-shadow-white text-center'>How to Buy?</h1>
       </div>

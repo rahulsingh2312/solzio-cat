@@ -26,7 +26,7 @@ const CustomWalletConnect: React.FC = () => {
   }, [disconnecting])
 
   useLayoutEffect(() => {
-    if (connected) setLabel("Connected")
+    if (connected) setLabel("Connected 🐱")
     else setLabel('Connect Wallet')
   }, [connected])
 
@@ -41,9 +41,9 @@ const CustomWalletConnect: React.FC = () => {
   </Button>
       </DropdownMenuTrigger>
       {connected && (
-        <DropdownMenuContent className="flex flex-col py-2">
+        <DropdownMenuContent className="flex flex-col ">
           <DropdownMenuItem asChild>
-            <Button variant="ghost" className="text-base text-destructive justify-start pl-4 pr-12 tracking-wider" onClick={() => disconnect()}>
+            <Button  className=" bg-white text-black border-2 border-black  border-b-4 text-base text-destructive justify-start pl-4 pr-12 tracking-wider" onClick={() => disconnect()}>
               Disconnect
             </Button>
           </DropdownMenuItem>

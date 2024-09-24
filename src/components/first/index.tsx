@@ -7,7 +7,7 @@ export default function Home() {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#ffdd75d4] via-[#fef9c2ba] to-[#fef9c2ba]">
+    <div id="home" className="min-h-screen bg-gradient-to-b from-[#ffdd75d4] via-[#fef9c2ba] to-[#fef9c2ba]">
 
       <Navbar />
       <Hero />

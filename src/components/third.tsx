@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 export default function ResponsiveSolzioDashboard() {
   return (
-    <div className="min-h-screen bg-[#fff4d8] overflow-x-hidden">
+    <div id="price" className="min-h-screen bg-[#fff4d8] overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative">
         <h1 className="text-[#f3eace] text-8xl sm:text-9xl md:text-[250px] font-bold font-['Neuton'] absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0 opacity-50">$SOLZIO</h1>
 
