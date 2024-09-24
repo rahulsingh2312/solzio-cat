@@ -1,13 +1,28 @@
 import Image from 'next/image'
 import { MdContentCopy } from 'react-icons/md'
-
+import { useState } from 'react';
+import { FaCheckCircle } from "react-icons/fa";
+import { useToast } from "@/hooks/use-toast"
 export default function Hero() {
+ 
+  const { toast } = useToast();
 
+  const [isCopied, setIsCopied] = useState(false);
+  const address = '56SDQBD*********PX1PUMP';
 
- const copyAddress = () => {
-    navigator.clipboard.writeText('56SDQBD*********PX1PUMP');
-    alert('Address copied to clipboard');
- }; 
+  const copyAddress = () => {
+    navigator.clipboard.writeText(address);
+    setIsCopied(true);
+    toast({
+      variant: 'destructive',
+      title: 'Address copied to clipboard ! 🐱',
+      className: 'bg-white text-black border-black border-2 border-b-4 border-solid text-3xl',
+    });
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 2000);
+
+  };
 
     return (
         <main className="container mx-auto px-4 py-12 z-10 relative">
@@ -41,9 +56,12 @@ export default function Hero() {
             />
 
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-7xl font-bold mb-4 pt-8 sm:pt-12 md:pt-16">
+             
               <span className='text-yellow-500 text-stroke-black text-shadow-black text-bold'>
+              <Image className='absolute -top-1 left-1/3 transform -translate-x-1/3   h-[150px] w-[150px] z-10' src="/whisk.png" alt="cat" width={100} height={100}/>
                 The Purr-fect Coin
               </span>
+              
               <br />
               <span className="text-black font-comic-neue-regular text-4xl sm:text-5xl md:text-6xl lg:text-6xl">
                 for Crypto Enthusiasts
@@ -79,17 +97,22 @@ export default function Hero() {
           <div className="h-[60px] justify-start items-center gap-4 inline-flex">
             
          
-          <div className="flex flex-col sm:flex-row gap-4 items-center">
-      <div className="w-full sm:w-[340px] h-[60px] relative">
-        <div className="w-full sm:w-[340px] h-[60px] absolute bg-[#fff7b9] rounded-xl shadow border border-black" />
-        <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
-          <MdContentCopy className="w-6 h-6 cursor-pointer" onClick={copyAddress} />
-        </div>
-        <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-black text-lg sm:text-[22px] font-bold truncate pr-12">
-          56SDQBD*********PX1PUMP
-        </div>
-      </div>
-      <button className="w-full sm:w-[165px] h-[60px] rounded-xl shadow border border-black hover:bg-[#dc4d4d] bg-[#f47372]">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+      
+
+     <div className="mt-20 sm:mt-0 w-[345px] h-[50px] rounded-xl shadow border border-black bg-yellow-200 flex items-center justify-between px-4 py-2">
+      <h1 className="text-black text-[23px] font-normal justify-center items-center">
+        {address}
+      </h1>
+      <button
+        onClick={copyAddress}
+        className="text-black text-xl font-normal justify-center items-center px-4 py-2 transition-all duration-200"
+      >
+        {isCopied ? <FaCheckCircle className="text-green-900 text-2xl" /> : <MdContentCopy className="text-black text-2xl" />}
+      </button>
+    </div>
+    
+      <button className="w-[165px] sm:w-[165px] h-[60px] rounded-xl shadow border border-black hover:bg-[#dc4d4d] bg-[#f47372]">
         <div className="text-black text-lg sm:text-[22px] font-normal">
           Buy $SOLZIO
         </div>

@@ -25,7 +25,7 @@ export default function Navbar() {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
-    <nav className="bg-yellow-300 lg:bg-transparent flex justify-between items-center px-2">
+    <nav className="bg-yellow-400 pr-6 text-4xl font-bold lg:bg-transparent flex justify-between items-center px-2">
       <div className="text-black">
         <Image
           width={150}
