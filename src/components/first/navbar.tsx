@@ -33,7 +33,7 @@ const Navbar: React.FC = () => {
           src="/logo.png"
           width={150}
           height={100}
-          className="h-18 w-32 pl-4 lg:h-20 lg:pl-14"
+          className="h-18 w-28 pl-4 lg:w-40 lg:pl-14"
           alt="Solzio Cat"
           priority
         />

@@ -27,8 +27,13 @@ export default function Fifth() {
         </div>
         <Card number='04' className='md:translate-y-48 md:rotate-[7deg]' text="Get your Share"/>
       </div>
-      <Comm number='' className='mt-20 md:mt-80 pb-10 md:pb-20 flex justify-center items-center' text="Join our Community"/>
+     
+      <Comm number='' className='mt-20 md:mt-80 mb-10 md:mb-20 flex justify-center items-center ' text="Join our Community"/>
+     
+     
       <div className='flex flex-col md:flex-row justify-between items-center p-4 md:px-12 bg-black w-full min-h-[120px] text-white'>
+
+
         <Image src="/logo.png" alt="raydium" width={100} height={100} className='mb-4 md:mb-0'/>
         <div className='flex gap-4'>
           <div className='flex gap-4 border-white border-2 rounded-3xl text-xl md:text-2xl p-2'>

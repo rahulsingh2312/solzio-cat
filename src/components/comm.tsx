@@ -20,15 +20,19 @@ export default function Comm({ text, className = '', number }: CardProps) {
 
        
        
-       <div className='flex flex-col gap-4'>
-       <div className="text-2xl md:text-3xl font-bold  z-20">  <div className='text-black text-shadow-white'>{text}</div><div 
-        className=" z-20 pt-5 text-black text-sm md:text-xl">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias harum Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit, fugit? </div>
+       <div className='flex flex-col '>
+      
+       <div className="text-2xl md:text-3xl font-bold  z-20">
+          <div className='text-black text-shadow-white'>{text}</div>
+          
+          <div 
+        className=" z-20  text-black text-sm md:text-xl">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias harum Lorem ipsum dolor sit amet, consectetur adipisicing  </div>
          
        
         
         </div>
        
-        <div className=' hidden md:flex gap-4 pt-0'>
+        <div className=' hidden md:flex gap-4 pt-4'>
            <div className='flex gap-4 border-black border-2 rounded-lg bg-black text-white text-2xl p-2'>
               <CiMail />
           
@@ -46,7 +50,8 @@ export default function Comm({ text, className = '', number }: CardProps) {
         </div>
        </div>
        <div className='flex justify-center items-center pb-[90px]'>
-            <Image src="/solocat.png" alt="raydium" width={800} height={800} className=' w-[1360px] h-[360px] md:w-[480px] md:h-[180px] '/>
+          
+            <Image src="/solocat.png" alt="raydium" width={800} height={800} className='w-[1940px] h-[370px] md:w-[680px] md:h-[180px] lg:w-[1360px] lg:h-[360px]'/>
         </div>   
       </div>
       <div>        
