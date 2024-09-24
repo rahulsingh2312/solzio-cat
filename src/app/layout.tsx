@@ -1,3 +1,4 @@
+import WalletContext from "../components/wallets/WalletContextProvider";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -41,7 +42,7 @@ export default function RootLayout({
       <body
         className={`${comicNeue.variable} antialiased`}
       >
-        {children}
+        <WalletContext>{children}</WalletContext>
         <Toaster />
       </body>
     </html>

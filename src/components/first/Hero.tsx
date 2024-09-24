@@ -36,7 +36,7 @@ export default function Hero() {
               height={100}
               alt='coin'
               src="/coin.svg"
-              className="w-[100px] h-[56px] md:w-[160px] md:h-[90px] rotate-[-21.47deg] absolute top-0 right-[10%] md:right-[290px] transform translate-x-[50%] translate-y-[80%]"
+              className="w-[100px] md:opacity-100 opacity-50 h-[56px] md:w-[160px] md:h-[90px] rotate-[-21.47deg] absolute top-0 right-[10%] md:right-[290px] transform translate-x-[50%] translate-y-[80%]"
             />
 
             <Image
@@ -44,7 +44,7 @@ export default function Hero() {
               height={100}
               alt='coin'
               src="/coin.svg"
-              className="w-[100px] h-[44px] md:w-[160px] md:h-[70px] rotate-[21.47deg] absolute top-4 md:top-8 right-[15%] md:right-[310px] transform translate-x-[10%] translate-y-[10%]"
+              className="w-[100px] md:opacity-100 opacity-50 h-[44px] md:w-[160px] md:h-[70px] rotate-[21.47deg] absolute top-4 md:top-8 right-[15%] md:right-[310px] transform translate-x-[10%] translate-y-[10%]"
             />
 
             <Image
@@ -52,13 +52,13 @@ export default function Hero() {
               width={106}
               height={106}
               src="/coin.svg"
-              className="w-[60px] h-[59px] md:w-[96px] md:h-[95px] rotate-[41.47deg] absolute -top-20 md:-top-30 left-1/4 transform -translate-x-1/2 translate-y-[80%]"
+              className="w-[60px] md:opacity-100 opacity-50 h-[59px] md:w-[96px] md:h-[95px] rotate-[41.47deg] absolute -top-20 md:-top-30 left-1/4 transform -translate-x-1/2 translate-y-[80%]"
             />
 
             <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-7xl font-bold mb-4 pt-8 sm:pt-12 md:pt-16">
              
               <span className='text-yellow-500 text-stroke-black text-shadow-black text-bold'>
-              <Image className='absolute -top-1 left-1/3 transform -translate-x-1/3   h-[150px] w-[150px] z-10' src="/whisk.png" alt="cat" width={100} height={100}/>
+              <Image className='absolute -top-1 left-1/3 transform -translate-x-1/3   h-[150px] w-[150px] z-10 md:transparent opacity-50' src="/whisk.png" alt="cat" width={100} height={100}/>
                 The Purr-fect Coin
               </span>
               

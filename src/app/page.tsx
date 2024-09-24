@@ -2,7 +2,7 @@ import First from "@/components/first";
 import Second from "@/components/second";
 import Third from "@/components/third";
 import Fourth from "@/components/fourth";
-import Fifthh from "@/components/fifthh";
+import Fifth from "@/components/fifth";
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
       <Second />
       <Third /> 
       <Fourth />
-      <Fifthh />
+      <Fifth />
     </>
  
   ) }
