@@ -9,7 +9,7 @@ const WarningBanner = () => (
 
     <h1 className='flex items-center text-2xl justify-center p-8'>
     <IoIosWarning className='text-red-600 text-3xl' />
-    Warning! Holding without staking is risky. BMC is a game—play wisely!<IoIosWarning className='text-red-600 text-3xl' />
+   <div className='text-sm md:text-2xl mx-4  flex items-center  justify-center '>Warning! Holding without staking is risky. BMC is a game—play wisely!</div><IoIosWarning className='text-red-600 text-3xl' />
     </h1>
   
 
@@ -22,19 +22,19 @@ const Fourth = () => (
     <WarningBanner />
     <div className="container mx-auto p-4">
      
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4   ">
+      <div className="grid grid-cols-1 769:grid-cols-2  1200:grid-cols-3 gap-4   ">
            <div className=" flex justify-center items-center">
            <SwapInterface className=' ' />
            </div>
 
-       <div className='flex  md:pt-24 flex-col justify-center items-center'>
+       <div className='flex mb-4 md:pt-24 flex-col justify-center items-center'>
 
-       <h1 className=" text-6xl text-center font-serif   py-4">Play Smart <br className=' py-4' /> <span className='text-white text-stroke-black text-shadow-black text-bold font-semibold'>
+       <h1 className=" text-6xl text-center font-serif font-medium    py-4">Play Smart , <br className=' py-4' /> <span className='text-black text-stroke text-shadow-white text-bold font-semibold'>
                Stake
               </span> Wisely!</h1>
        
        
-      <AddLiquidity/>
+      <AddLiquidity />
        </div>
      
      <StakeToMakeMoney/>

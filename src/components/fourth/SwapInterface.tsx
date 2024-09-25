@@ -49,20 +49,20 @@ const SwapInterface = ({ className }: { className: string }) => {
   };
 
   return (
-    <div className={`bg-yellow-200 h-[548px] w-[300px] border-2 border-black rounded-lg max-w-m ${className}`}>
-      <h1 className="text-2xl font-bold text-center mb-4 pt-4">BUY $BMC</h1>
+    
+    <div className={`font-sans border-[#bd8400] h-[518px] w-[360px] border-4 bg-[#FFD87F] rounded-lg max-w-m ${className}} md:w-[360px] md:h-[518px]`} >
+      <h1 className="text-2xl font-bold text-center mb-4 pt-4">1. BUY $BMC</h1>
       
-      <div className="bg-white border-t-2 border-black rounded-lg p-4">
+      <div className="bg-white px-8 border-t-2 border-[#bd8400] rounded-lg p-4">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Swap </h2>
+          <h2 className="text-3xl font-semibold">Swap </h2>
           <Settings className="text-gray-500" />
         </div>
         
-        {/* You Pay Section */}
-        <div className="bg-gray-100 border-2 border-black rounded-lg p-3 mb-2">
+        <div className="border-2 border-black rounded-lg p-3 mb-2">
           <div className="flex justify-between mb-1 gap-12">
-            <span className="text-gray-500">You Pay</span>
-            <span className="text-gray-500">Balance: 0.00 MAX</span>
+            <span className="text-black text-xl">You Pay</span>
+            <span className="text-black pr-2">Balance: 0.00 MAX</span>
           </div>
           <div className="flex justify-between items-center">
             <input
@@ -109,8 +109,8 @@ const SwapInterface = ({ className }: { className: string }) => {
         {/* You Receive Section */}
         <div className="bg-gray-100 border-2 border-black rounded-lg p-3 mb-4">
           <div className="flex justify-between mb-1">
-            <span className="text-gray-500">You Receive</span>
-            <span className="text-gray-500">Balance: 0.00</span>
+            <span className="text-black">You Receive</span>
+            <span className="text-black pr-2">Balance: 0.00 MAX</span>
           </div>
           <div className="flex justify-between items-center">
             <input
@@ -150,7 +150,7 @@ const SwapInterface = ({ className }: { className: string }) => {
         {/* Slippage Tolerance Section */}
         <div className="bg-gray-100 border-2 border-black rounded-lg p-3 mb-4">
           <div className="flex justify-between mb-1">
-            <span className="text-gray-500">Slippage Tolerance</span>
+            <span className="text-gray-900 text-sm">Slippage Tolerance</span>
             <span>%1.00</span>
           </div>
           <div className="flex justify-between">
@@ -159,7 +159,7 @@ const SwapInterface = ({ className }: { className: string }) => {
           </div>
         </div>
         
-        <div className='pl-16 justify-center items-center'>
+        <div className="pl-[70px] justify-center items-center">
           <WalletButton />
         </div>
       </div>

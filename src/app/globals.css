@@ -6,6 +6,7 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-comic-neue);
+  scroll-behavior: smooth;
 }
 
 
@@ -49,3 +50,29 @@ body {
 .font-seriff {
   font-family: var(--font-serif);
 }
+.toast-top-center {
+  position: fixed;
+  top: 20px;  /* Adjust this to move the toast up or down */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+
+  background-color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  /* Default width for mobile devices */
+  width: 90%;
+
+  /* Media query for medium-sized screens and above */
+  @media (min-width: 768px) { /* md screen breakpoint */
+    width: 40%;
+  }
+}
+
+
