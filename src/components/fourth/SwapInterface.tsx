@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { FaEthereum, FaBitcoin } from "react-icons/fa";
 import React, { useState } from 'react';
 import { Settings, ChevronDown } from 'lucide-react';
@@ -8,11 +8,11 @@ import WalletButton from '@/components/wallets/WalletButton';
 const SwapInterface = ({ className }: { className: string }) => {
   const [ethAmount, setEthAmount] = useState('0.00');
   const [solzioAmount, setSolzioAmount] = useState('0.00');
-  
+
   // State for dropdowns
   const [selectedPayCurrency, setSelectedPayCurrency] = useState('ETH');
   const [selectedReceiveCurrency, setSelectedReceiveCurrency] = useState('BMC');
-  
+
   // State to manage dropdown visibility
   const [isPayDropdownOpen, setIsPayDropdownOpen] = useState(false);
   const [isReceiveDropdownOpen, setIsReceiveDropdownOpen] = useState(false);
@@ -31,6 +31,21 @@ const SwapInterface = ({ className }: { className: string }) => {
   const handleReceiveCurrencySelect = (currency: string) => {
     setSelectedReceiveCurrency(currency);
     setIsReceiveDropdownOpen(false); // Close dropdown
+  };
+
+  // Function to handle swapping currencies
+  const handleSwap = () => {
+    // Swap the selected currencies
+    const tempCurrency = selectedPayCurrency;
+    setSelectedPayCurrency(selectedReceiveCurrency);
+    setSelectedReceiveCurrency(tempCurrency);
+    
+    // You might want to swap the amounts as well, depending on your use case
+    const tempAmount = ethAmount;
+    setEthAmount(solzioAmount);
+    setSolzioAmount(tempAmount);
+
+    console.log(ethAmount, solzioAmount)
   };
 
   return (
@@ -85,7 +100,7 @@ const SwapInterface = ({ className }: { className: string }) => {
         </div>
         
         {/* Swap Button */}
-        <div className="flex justify-center my-2">
+        <div className="flex justify-center my-2 cursor-pointer" onClick={handleSwap}>
           <div className="bg-yellow-300 p-2 rounded-full">
             <CgSwapVertical className="w-10 h-10" />
           </div>
