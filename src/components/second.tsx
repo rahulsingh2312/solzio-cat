@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 export default function ResponsiveSolzioLayout() {
   return (
-    <div className="min-h-screen bg-[#ffdd75] bg-[url('/bg2.png')] bg-cover bg-center overflow-hidden">
+    <div id='about' className="min-h-screen bg-[#ffdd75] bg-[url('/bg2.png')] bg-cover bg-center overflow-hidden">
       <div className="max-w-full mx-auto px-0 md:px-4 py-8">
         <div className="relative mb-8 px-4">
           <h1 className="text-center text-2xl md:text-5xl leading-tight">

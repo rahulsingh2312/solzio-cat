@@ -6,6 +6,7 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: var(--font-comic-neue);
+  scroll-behavior: smooth;
 }
 
 

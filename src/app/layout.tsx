@@ -40,7 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${comicNeue.variable} antialiased`}
+        className={`${comicNeue.variable} antialiased scroll-smooth`}
       >
         <WalletContext>{children}</WalletContext>
         <Toaster />
