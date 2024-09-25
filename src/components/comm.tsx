@@ -13,7 +13,15 @@ interface CardProps {
 export default function Comm({ text, className = '', number }: CardProps) {
   return (
     <div className={`relative ${className}`}>
-      <div className="bg-yellow-500 hidden md:flex mx-2 border-2 border-black  flex-col md:flex-row border-b-[5px] pr-4 md:pr-16 pt-6 md:pt-8 pl-4 rounded-2xl z-20 w-full max-w-[1000px] h-[160px] md:h-[260px]">
+      <div 
+       style={{
+        // backgroundImage: `url(${"/catpawprint.png"})`,
+        // maskImage: 'url("/catpawprint.png")', // You'll need to create this mask image
+        // WebkitMaskImage: 'url("/catpawprint.png")',
+        // maskSize: 'cover',
+        // WebkitMaskSize: 'cover'
+      }}
+      className="bg-yellow-500 hidden md:flex mx-2 border-2 border-black  flex-col md:flex-row border-b-[5px] pr-4 md:pr-16 pt-6 md:pt-8 pl-4 rounded-2xl z-20 w-full max-w-[1000px] h-[160px] md:h-[260px]">
         <div className="flex flex-col">
           <div className="text-lg md:text-3xl font-bold z-20">
             <div className='text-black text-shadow-white'>{text}</div>
@@ -50,10 +58,19 @@ export default function Comm({ text, className = '', number }: CardProps) {
       {/* Icons for mobile */}
     
 
-      <div className="bg-yellow-500 md:hidden mx-2 border-2 border-black flex flex-row pr-4 pt-6 pl-4 rounded-2xl z-20 w-full max-w-[1000px] h-[160px] md:h-[260px]">
+      <div 
+       style={{
+        // backgroundImage: `url(${"/catpawprint.png"})`,
+        // maskImage: 'url("/catpawprint.png")', // You'll need to create this mask image
+        // WebkitMaskImage: 'url("/catpawprint.png")',
+        // maskSize: 'cover',
+        // WebkitMaskSize: 'cover',
+        // opacity: 0.1 // Set the opacity to be very low
+      }}
+      className="bg-yellow-500 md:hidden mx-2 border-2 border-black flex flex-row pr-4 pt-6 pl-4 rounded-2xl z-10 w-full max-w-[1000px] h-[160px] md:h-[260px]">
         
         {/* Left side - Text and Icons */}
-        <div className="flex flex-col flex-1">
+        <div className="z-50 flex flex-col flex-1">
           <div className="text-lg md:text-3xl font-bold z-20">
             <div className='text-black text-shadow-white'>{text}</div>
           </div>

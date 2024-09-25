@@ -49,11 +49,11 @@ const SwapInterface = ({ className }: { className: string }) => {
   };
 
   return (
-    
     <div className={`font-sans border-[#bd8400] h-[518px] w-[360px] border-4 bg-[#FFD87F] rounded-lg max-w-m ${className}} md:w-[360px] md:h-[518px]`} >
-      <h1 className="text-2xl font-bold text-center mb-4 pt-4">1. BUY $BMC</h1>
+    <h1 className="text-2xl font-bold text-center mb-4 pt-4">1. BUY $BMC</h1>
+    
       
-      <div className="bg-white px-8 border-t-2 border-[#bd8400] rounded-lg p-4">
+    <div className="bg-white px-8 border-t-2 border-[#bd8400] rounded-lg p-4">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-3xl font-semibold">Swap </h2>
           <Settings className="text-gray-500" />

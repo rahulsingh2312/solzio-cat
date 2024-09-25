@@ -9,7 +9,7 @@ const WarningBanner = () => (
 
     <h1 className='flex items-center text-2xl justify-center p-8'>
     <IoIosWarning className='text-red-600 text-3xl' />
-   <div className='text-sm md:text-2xl mx-4  flex items-center  justify-center '>Warning! Holding without staking is risky. BMC is a game—play wisely!</div><IoIosWarning className='text-red-600 text-3xl' />
+   <div className='text-sm md:text-2xl mx-4  flex items-center  justify-center '>Warning! Holding without staking is risky. Solzio is a game—play wisely!</div><IoIosWarning className='text-red-600 text-3xl' />
     </h1>
   
 
@@ -27,7 +27,7 @@ const Fourth = () => (
            <SwapInterface className=' ' />
            </div>
 
-       <div className='flex mb-4 md:pt-24 flex-col justify-center items-center'>
+       <div className='flex mb-4 mt-24 md:mt-0 md:pt-24 flex-col justify-center items-center'>
 
        <h1 className=" text-6xl text-center font-serif font-medium    py-4">Play Smart , <br className=' py-4' /> <span className='text-black text-stroke text-shadow-white text-bold font-semibold'>
                Stake
