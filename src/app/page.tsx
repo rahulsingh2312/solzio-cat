@@ -1,4 +1,4 @@
-import First from "@/components/first";
+import First from "../components/first";
 import Second from "@/components/second";
 import Third from "@/components/third";
 import Fourth from "@/components/fourth";
