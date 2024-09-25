@@ -14,18 +14,18 @@ export default function Fifth() {
       </div>
       <div className='flex flex-col md:flex-row gap-8 md:gap-12 p-4 md:p-12 justify-center items-center'>
         <div className='relative'>
-          <Card number='01' className='md:translate-y-6 md:rotate-[-7deg]' text="Create a wallet"/>
+          <Card number='01' className='md:translate-y-6 md:rotate-[-7deg]' text="Connect a wallet" description='Use metamask or any other evm based wallets'/>
           <Image src="/arrow5.svg" alt="raydium" width={150} height={150} className='hidden md:block absolute md:translate-y-[50px] md:translate-x-[140px] md:rotate-[10deg]'/>
         </div>
         <div className='relative'>
-          <Image src="/arrow7.svg" alt="raydium" width={140} height={150} className='hidden md:block absolute md:translate-x-[160px] md:translate-y-[130px]'/>
-          <Card number='02' className='md:translate-y-48 md:rotate-[6deg]' text="Get some Sol"/>
+          <Image src="/arrow7.svg" alt="raydium" width={140} height={150} className='hidden md:block absolute md:translate-x-[160px] md:translate-y-[130px]' />
+          <Card number='02' className='md:translate-y-48 md:rotate-[6deg]' text="Go to Uniswap" description='Copy the contract address and paste it in Uniswap '/>
         </div>
         <div className='relative'>
-          <Card number='03' className='md:translate-y-6 md:rotate-[-4deg]' text="Go to Raydium!"/>
+          <Card number='03' className='md:translate-y-6 md:rotate-[-4deg]' text="Swap" description='Swap for $BMC'/>
           <Image src="/arrow5.svg" alt="raydium" width={140} height={150} className='hidden md:block absolute md:translate-x-[160px] md:translate-y-[80px]'/>
         </div>
-        <Card number='04' className='md:translate-y-48 md:rotate-[7deg]' text="Get your Share"/>
+        <Card number='04' className='md:translate-y-48 md:rotate-[7deg]' text="Stake" description='Stake your $BMC to start earning big'/>
       </div>
      
       <Comm number='' className='mt-20 md:mt-80 mb-10 md:mb-20 flex justify-center items-center ' text="Join our Community"/>

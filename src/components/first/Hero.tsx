@@ -1,18 +1,57 @@
 import Image from 'next/image';
 import { MdContentCopy } from 'react-icons/md';
-import { useState } from 'react';
-import { FaCheckCircle } from "react-icons/fa";
-import { useToast } from "@/hooks/use-toast";
+import { useState, useEffect } from 'react';
+import { FaCheckCircle } from 'react-icons/fa';
+import { useToast } from "@/hooks/use-toast"
+import { useWallet } from '../wallets/WalletContextProvider';
+import { ethers, Contract } from "ethers"; // Ensure you import Contract
+import { contractAddress, contractABI } from '../../common/contract/contract'; // Adjust path as necessary
 
 export default function Hero() {
+  const { walletAddress } = useWallet();
   const { toast } = useToast();
   const [isCopied, setIsCopied] = useState(false);
-  const address = '56SDQBD*********PX1PUMP';
+  const [contract, setContract] = useState<Contract | null>(null); // Type state properly
+  // Set up the contract instance
+  useEffect(() => {
+    const initContract = async () => {
+      if (window.ethereum && walletAddress) {
+        console.log(window.ethereum, walletAddress, "haha")
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const contractInstance = new ethers.Contract(contractAddress, contractABI, signer);
+        setContract(contractInstance); // Now this will not cause a type error
+      }
+    };
+
+    initContract();
+  }, [walletAddress]);
+    // Buy function
+    const buyTokens = async () => {
+      if (!contract) {
+        console.error('Contract not initialized.');
+        return;
+      }
+  
+      try {
+        console.log(window.ethereum)
+        // const tx = await contract.buy({ value: ethers.utils.parseEther("0.1") }); // Set amount as needed
+        // await tx.wait();
+      } catch (error) {
+        console.error('Transaction failed:', error);
+        toast({
+          variant: 'destructive',
+          title: 'Transaction failed!',
+          // description: `${error.message}`,
+        });
+      }
+    };
+  // Copy address to clipboard
 
   const copyAddress = () => {
     if (navigator.clipboard && navigator.clipboard.writeText) {
       // Use clipboard API if available
-      navigator.clipboard.writeText(address)
+      navigator.clipboard.writeText(contractAddress)
         .then(() => {
           setIsCopied(true);
           toast({
@@ -30,7 +69,7 @@ export default function Hero() {
     } else {
       // Fallback for mobile devices that do not support clipboard API
       const textArea = document.createElement('textarea');
-      textArea.value = address;
+      textArea.value = contractAddress;
       document.body.appendChild(textArea);
       textArea.style.position = 'fixed';  // Avoid scrolling to bottom
       textArea.style.left = '-9999px';
@@ -53,10 +92,12 @@ export default function Hero() {
       }
       document.body.removeChild(textArea);
     }
+
+
+
   };
-  
-  return (
-    <main className="container mx-auto px-4 py-12 z-10 relative overflow-hidden">
+    return (
+      <main className="container mx-auto px-4 py-12 z-10 relative overflow-hidden">
 
       {/* Hero Section */}
       <div className='text-center overflow-hidden'>
@@ -95,7 +136,7 @@ export default function Hero() {
           </h1>
 
           <h1 className="text-black/10 text-7xl sm:text-8xl md:text-9xl lg:text-[200px] xl:text-[250px] absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/4 z-0 opacity-50 pt-[100px] sm:pt-[120px] md:pt-[140px] lg:pt-[160px] xl:pt-[180px]">
-            $SOLZIO
+            $BMC
           </h1>
         </div>
       </div>
@@ -116,7 +157,7 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
           <div className="w-full max-w-[345px] h-[60px] rounded-xl shadow border border-black bg-yellow-200 flex items-center justify-between px-4 py-2">
             <h1 className="text-black text-[20px] sm:text-[23px] font-normal">
-              {address}
+              {contractAddress}
             </h1>
             <button
               onClick={copyAddress}
@@ -126,13 +167,15 @@ export default function Hero() {
             </button>
           </div>
 
-          <button className="w-[165px] h-[60px] rounded-xl shadow border border-black bg-[#f47372] hover:bg-[#dc4d4d] transition-all duration-300">
+          <button
+          onClick={buyTokens}
+          className="w-[165px] h-[60px] rounded-xl shadow border border-black bg-[#f47372] hover:bg-[#dc4d4d] transition-all duration-300">
             <div className="text-black text-lg sm:text-[22px] font-normal">
-              Buy $SOLZIO
+              Buy $BMC
             </div>
           </button>
         </div>
       </div>
     </main>
-  );
+    )
 }

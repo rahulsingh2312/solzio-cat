@@ -3,10 +3,11 @@ import React from 'react';
 interface CardProps {
   text: string;
   className?: string;
-  number: string; // New prop for the transparent number
+  number: string; 
+  description: string;// New prop for the transparent number
 }
 
-export default function Card({ text, className = '', number }: CardProps) {
+export default function Card({ text, className = '', number, description }: CardProps) {
   return (
     <div className={`relative ${className}`}>
     
@@ -18,7 +19,7 @@ export default function Card({ text, className = '', number }: CardProps) {
           <div  className="text-3xl pt-4 font-bold z-20 truncate whitespace-nowrap overflow-hidden text-ellipsis">
           {text}
           </div>
-           <div className="text-base z-20 pt-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias harum </div></div>
+           <div className="text-base z-20 pt-5">       {description} </div></div>
        
       </div>
     </div>
