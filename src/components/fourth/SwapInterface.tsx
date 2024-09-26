@@ -1,51 +1,95 @@
 "use client";
 import { FaEthereum, FaBitcoin } from "react-icons/fa";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Settings, ChevronDown } from 'lucide-react';
 import { CgSwapVertical } from "react-icons/cg";
-import WalletButton from '@/components/wallets/WalletButton';
+import { Button } from "../ui/button";
+import { useWallet } from "../wallets/WalletContextProvider";
+import { ethers, Contract } from "ethers";
+import { contractAddress, contractABI } from '../../common/contract/contract'; // Adjust path as necessary
+import { useToast } from "@/hooks/use-toast";
 
 const SwapInterface = ({ className }: { className: string }) => {
+  const { walletAddress } = useWallet();
+  const { toast } = useToast();
   const [ethAmount, setEthAmount] = useState('0.00');
   const [solzioAmount, setSolzioAmount] = useState('0.00');
+  const [contract, setContract] = useState<Contract | null>(null);
 
-  // State for dropdowns
+  // Initialize the contract
+  useEffect(() => {
+    const initContract = async () => {
+      if (window.ethereum && walletAddress) {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        const contractInstance = new ethers.Contract(contractAddress, contractABI, signer);
+        setContract(contractInstance);
+      }
+    };
+
+    initContract();
+  }, [walletAddress]);
+
+  // Function to buy tokens
+  const buyTokens = async () => {
+    if (!contract) {
+      console.error('please connect your wallet properly...');
+      toast({
+        variant: 'destructive',
+        title: 'Connection Failed',
+      });
+      return;
+    }
+
+    try {
+      //Contract call
+      // const tx = await contract.buy({ value: ethers.utils.parseEther(ethAmount) });
+      // await tx.wait();
+      toast({
+        variant: 'default',
+        title: 'Transaction successful!',
+        description: `Bought ${ethAmount} ETH worth of $SOLZIO.`,
+      });
+    } catch (error) {
+      console.error('Transaction failed:', error);
+      const errorMessage = (error as Error).message || 'An unknown error occurred';
+      toast({
+        variant: 'destructive',
+        title: 'Transaction failed!',
+        description: `${errorMessage}`,
+      });
+    }
+  };
+
+  // Dropdown and other states
   const [selectedPayCurrency, setSelectedPayCurrency] = useState('ETH');
   const [selectedReceiveCurrency, setSelectedReceiveCurrency] = useState('BMC');
-
-  // State to manage dropdown visibility
   const [isPayDropdownOpen, setIsPayDropdownOpen] = useState(false);
   const [isReceiveDropdownOpen, setIsReceiveDropdownOpen] = useState(false);
 
   const currencies = [
     { name: 'ETH', icon: <FaEthereum /> },
     { name: 'BMC', icon: <FaBitcoin /> },
-    // Add more currencies as needed
   ];
 
   const handlePayCurrencySelect = (currency: string) => {
     setSelectedPayCurrency(currency);
-    setIsPayDropdownOpen(false); // Close dropdown
+    setIsPayDropdownOpen(false);
   };
 
   const handleReceiveCurrencySelect = (currency: string) => {
     setSelectedReceiveCurrency(currency);
-    setIsReceiveDropdownOpen(false); // Close dropdown
+    setIsReceiveDropdownOpen(false);
   };
 
-  // Function to handle swapping currencies
   const handleSwap = () => {
-    // Swap the selected currencies
     const tempCurrency = selectedPayCurrency;
     setSelectedPayCurrency(selectedReceiveCurrency);
     setSelectedReceiveCurrency(tempCurrency);
-    
-    // You might want to swap the amounts as well, depending on your use case
+
     const tempAmount = ethAmount;
     setEthAmount(solzioAmount);
     setSolzioAmount(tempAmount);
-
-    console.log(ethAmount, solzioAmount)
   };
 
   return (
@@ -75,7 +119,7 @@ const SwapInterface = ({ className }: { className: string }) => {
             <div className="relative">
               <button 
                 className="flex items-center bg-gray-200 border-black border-2 px-3 py-1 rounded-full"
-                onClick={() => setIsPayDropdownOpen(prev => !prev)} // Toggle dropdown
+                onClick={() => setIsPayDropdownOpen(prev => !prev)}
               >
                 {currencies.find(c => c.name === selectedPayCurrency)?.icon}
                 {selectedPayCurrency}
@@ -123,7 +167,7 @@ const SwapInterface = ({ className }: { className: string }) => {
             <div className="relative">
               <button 
                 className="flex items-center bg-gray-200 border-black border-2 px-3 py-1 rounded-full"
-                onClick={() => setIsReceiveDropdownOpen(prev => !prev)} // Toggle dropdown
+                onClick={() => setIsReceiveDropdownOpen(prev => !prev)}
               >
                 {currencies.find(c => c.name === selectedReceiveCurrency)?.icon}
                 {selectedReceiveCurrency}
@@ -159,9 +203,16 @@ const SwapInterface = ({ className }: { className: string }) => {
           </div>
         </div>
         
-        <div className='pl-16 justify-center items-center'>
-          <WalletButton />
-        </div>
+        {/* Buy Token Button */}
+        <div className='flex justify-center'>
+  <Button
+    className="inline-flex whitespace-nowrap rounded-md font-medium text-xl justify-center items-center ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-10 px-4 py-2 hover:bg-[#cc9e1e] bg-[#ffc43b] border-[1px] border-black shadow-4xl"
+    onClick={buyTokens}
+  >
+    Buy $BMC 
+  </Button>
+</div>
+
       </div>
     </div>
   );
