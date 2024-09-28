@@ -9,7 +9,8 @@ const WarningBanner = () => (
 
     <h1 className='flex items-center text-2xl justify-center p-8'>
     <IoIosWarning className='text-red-600 text-3xl' />
-   <div className='text-sm md:text-2xl mx-4  flex items-center  justify-center '>Warning! Holding without staking is risky. Solzio is a game—play wisely!</div><IoIosWarning className='text-red-600 text-3xl' />
+   <div className='text-sm md:text-2xl mx-4  flex items-center  justify-center '>Holding without staking is risky. $DBAS is a game..play wisely!
+   </div><IoIosWarning className='text-red-600 text-3xl' />
     </h1>
   
 

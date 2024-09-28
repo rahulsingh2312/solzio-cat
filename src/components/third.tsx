@@ -35,12 +35,13 @@ export default function ResponsiveSolzioDashboard() {
     <div id="price" className="min-h-screen bg-[#fff4d8] overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative">
         <h1 className="text-[#f3eace] text-8xl sm:text-9xl md:text-[250px] font-bold font-['Neuton'] absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0 opacity-50">
-          $SOLZIO
+          $DBAS
         </h1>
         
         <div className="relative z-10">
           <h2 className="text-center text-black text-2xl sm:text-3xl md:text-4xl leading-tight mb-8">
-            Pounce on the price before it catnaps!
+          Watch the chart and time the perfect entry before $DBAS gets too Debased!
+
           </h2>
           
           <div className="flex flex-col md:flex-row justify-between items-start gap-8">

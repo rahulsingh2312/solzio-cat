@@ -22,13 +22,13 @@ export default function Fifth() {
           <Card number='02' className='md:translate-y-48 md:rotate-[6deg]' text="Go to Uniswap" description='Copy the contract address and paste it in Uniswap '/>
         </div>
         <div className='relative'>
-          <Card number='03' className='md:translate-y-6 md:rotate-[-4deg]' text="Swap" description='Swap for $BMC'/>
+          <Card number='03' className='md:translate-y-6 md:rotate-[-4deg]' text="Swap" description='Swap for $DBAS'/>
           <Image src="/arrow5.svg" alt="raydium" width={140} height={150} className='hidden md:block absolute md:translate-x-[160px] md:translate-y-[80px]'/>
         </div>
-        <Card number='04' className='md:translate-y-48 md:rotate-[7deg]' text="Stake" description='Stake your $BMC to start earning big'/>
+        <Card number='04' className='md:translate-y-48 md:rotate-[7deg]' text="Stake" description='Stake your $DBAS to start earning big'/>
       </div>
      
-      <Comm number='' className='mt-20 md:mt-80 mb-10 md:mb-20 flex justify-center items-center ' text="Join our Community"/>
+      <Comm number='' className='mt-20 md:mt-80 mb-10 md:mb-20 flex justify-center items-center ' text="Join the $DBAS community "/>
      
      
       <div className='flex flex-col md:flex-row justify-between items-center p-0 md:px-12 bg-black w-full md:min-h-[120px] text-white'>

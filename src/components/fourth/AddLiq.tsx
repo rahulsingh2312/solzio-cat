@@ -20,7 +20,7 @@ const AddLiquidity = () => {
           <span className="font-semibold">TOTAL RESERVES</span>
           <div className="text-right">
             <div className="font-semibold">282.61 ETH</div>
-            <div>1,526 BMC</div>
+            <div>1,526 DBAS</div>
           </div>
         </div>
         

@@ -11,7 +11,7 @@ const SwapInterface = ({ className }: { className: string }) => {
 
   // State for dropdowns
   const [selectedPayCurrency, setSelectedPayCurrency] = useState('ETH');
-  const [selectedReceiveCurrency, setSelectedReceiveCurrency] = useState('BMC');
+  const [selectedReceiveCurrency, setSelectedReceiveCurrency] = useState('DBAS');
 
   // State to manage dropdown visibility
   const [isPayDropdownOpen, setIsPayDropdownOpen] = useState(false);
@@ -19,7 +19,7 @@ const SwapInterface = ({ className }: { className: string }) => {
 
   const currencies = [
     { name: 'ETH', icon: <FaEthereum /> },
-    { name: 'BMC', icon: <FaBitcoin /> },
+    { name: 'DBAS', icon: <FaBitcoin /> },
     // Add more currencies as needed
   ];
 
@@ -50,7 +50,7 @@ const SwapInterface = ({ className }: { className: string }) => {
 
   return (
     <div className={`font-sans border-[#bd8400] h-[518px] w-[360px] border-4 bg-[#FFD87F] rounded-lg max-w-m ${className}} md:w-[360px] md:h-[518px]`} >
-    <h1 className="text-2xl font-bold text-center mb-4 pt-4">1. BUY $BMC</h1>
+    <h1 className="text-2xl font-bold text-center mb-4 pt-4">1. BUY $DBAS</h1>
     
       
     <div className="bg-white px-8 border-t-2 border-[#bd8400] rounded-lg p-4">
@@ -155,7 +155,7 @@ const SwapInterface = ({ className }: { className: string }) => {
           </div>
           <div className="flex justify-between">
             <span className="text-gray-500">Minimum received</span>
-            <span>0.00 BMC</span>
+            <span>0.00 DBAS</span>
           </div>
         </div>
         

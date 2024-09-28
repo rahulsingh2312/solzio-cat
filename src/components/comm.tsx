@@ -26,11 +26,9 @@ export default function Comm({ text, className = '', number }: CardProps) {
           <div className="text-lg md:text-3xl font-bold z-20">
             <div className='text-black text-shadow-white'>{text}</div>
           </div>
-          <div className="text-black hidden md:block text-xs md:text-xl overflow-hidden z-20">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias harum Lorem ipsum dolor sit amet, consectetur adipisicing.
-          </div>
+          <div className="text-black hidden md:block text-xs md:text-sm overflow-hidden mt-1 z-20">
+          Stay updated on the latest news and developments. By joining us, you'll gain access to valuable insights and information about the fluctuating chart and strategic opportunities within the DBAS ecosystem. Be part of a community that offers not just tech but also a network of like-minded       </div>
           <div className="text-black md:hidden block text-xs md:text-xl overflow-hidden z-20">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
             
           </div>
           <div className="flex gap-4 pt-2 md:pt-8">
@@ -67,20 +65,20 @@ export default function Comm({ text, className = '', number }: CardProps) {
         // WebkitMaskSize: 'cover',
         // opacity: 0.1 // Set the opacity to be very low
       }}
-      className="bg-yellow-500 md:hidden mx-2 border-2 border-black flex flex-row pr-4 pt-6 pl-4 rounded-2xl z-10 w-full max-w-[1000px] h-[160px] md:h-[260px]">
+      className="bg-yellow-500 md:hidden mx-2 border-2 border-black flex flex-row pr-4 pt-6 pl-4 rounded-2xl z-10 w-full max-w-[1000px] h-[200px] md:h-[260px]">
         
         {/* Left side - Text and Icons */}
         <div className="z-50 flex flex-col flex-1">
-          <div className="text-lg md:text-3xl font-bold z-20">
+          <div className="text-lg md:text-3xl -mt-5 font-bold z-20">
             <div className='text-black text-shadow-white'>{text}</div>
           </div>
           
           {/* Text description */}
           <div className="text-black hidden md:block text-xs md:text-xl overflow-hidden z-20">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias harum Lorem ipsum dolor sit amet, consectetur adipisicing.
+          Stay updated on the latest news and developments. By joining us, you'll gain access to valuable insights and information about the fluctuating chart and strategic opportunities within the DBAS ecosystem. Be part of a community that offers not just tech but also a network of like-minded      
           </div>
-          <div className="text-black md:hidden block text-xs overflow-hidden z-20">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. 
+          <div className="text-black md:hidden block text-[10px] overflow-hidden z-20">
+          Stay updated on the latest news and developments. By joining us, strategic opportunities within the DBAS ecosystem. Be part of a community that offers not just tech but also a network of like-minded      
           </div>
           
           {/* Icons */}

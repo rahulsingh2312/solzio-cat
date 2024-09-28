@@ -6,7 +6,7 @@ const StakeToMakeMoney = () => {
       
     <div className="w-full md:ml-5 md:w-[460px] text-xl font-sans border-[#bd8400] bg-[#FFD87F] border-4 rounded-lg max-w-m flex-col justify-between items-center mb-4">
        
-    <h1 className="text-2xl font-bold text-center pt-4 mb-4">3. STAKE TO MAKE MONEY</h1>
+    <h1 className="text-2xl font-bold text-center pt-4 mb-4">3. STAKE TO EARN REWARDS</h1>
      <div className='bg-white p-5 border-[#bd8400] border-t-2 rounded-lg shadow-md w-full'>
       
       <div className="space-y-4">
