@@ -38,7 +38,7 @@ const StakeToMakeMoney = () => {
             <span className="font-semibold">PENDING REWARDS</span>
             <div className="text-right">
               <div className="font-semibold">$0.00</div>
-              <div className="text-lg text-gray-500">0.00 PONZIO</div>
+              <div className="text-lg text-gray-500">0.00 DBAS</div>
             </div>
           </div>
           <div className='pl-[70px]  md:pl-16 justify-center items-center'>
