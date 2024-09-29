@@ -32,9 +32,17 @@ const Navbar: React.FC = () => {
           <div className="flex items-center text-black">
             <Image
               src="/dbaslogobgr.webp"
+              width={80}
+              height={60}
+              className=" md:hidden block  pl-4 lg:pl-14"
+              alt="Solzio Cat"
+              priority
+            />
+               <Image
+              src="/dbaslogobgr.webp"
               width={150}
               height={100}
-              className="h-18 w-28 pl-4 lg:w-40 lg:pl-14"
+              className=" hidden md:block pl-4 lg:pl-14"
               alt="Solzio Cat"
               priority
             />

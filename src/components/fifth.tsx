@@ -33,11 +33,12 @@ export default function Fifth() {
      
       <div className='flex flex-col md:flex-row justify-between items-center p-0 md:px-12 bg-black w-full md:min-h-[120px] text-white'>
   {/* Logo on the left */}
-  <div className="flex w-full justify-between items-center">
-    <Image src="/dbaslogobgr.webp" alt="raydium" width={100} height={100} className='md:mb-0' />
+  <div className="flex  w-full justify-between items-center">
+    <div className='md:hidden block'><Image src="/dbaslogobgr.webp" alt="raydium" width={50} height={50} className='md:mb-0 mt-2 ml-2' /></div>
+    <div className='hidden md:block'><Image src="/dbaslogobgr.webp" alt="raydium" width={130} height={130} className='md:mb-0 mt-2 ml-2' /></div>
 
     {/* Copyright text only visible on mobile */}
-    <p className="text-xs text-white md:hidden pr-10">Copyright @ SOLZIO CAT 2024</p>
+    <p className="text-xs text-white md:hidden pr-10">Copyright @ $DBAS 2024</p>
   </div>
 
   {/* Social icons for desktop */}
