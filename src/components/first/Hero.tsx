@@ -126,7 +126,7 @@ export default function Hero() {
 
           <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-7xl font-bold mb-4 pt-8 sm:pt-12 md:pt-16 relative">
             <span className='text-yellow-500 text-stroke-black text-shadow-black text-bold'>
-              <Image className='absolute -top-1 left-1/3 transform -translate-x-1/3 h-[150px] w-[150px] z-10 md:transparent opacity-50' src="/whisk.png" alt="cat" width={100} height={100} />
+              <Image className='absolute -top-1 left-1/3 transform -translate-x-1/3 h-[150px] w-[150px] z-10 md:transparent opacity-50' src="/whisk.webp" alt="cat" width={100} height={100} />
               Introducing DBAS
             </span>
             <br />
@@ -147,7 +147,7 @@ export default function Hero() {
           width={1800}
           height={1800}
           alt='catbg'
-          src="/SolzioCatDesign.png"
+          src="/SolzioCatDesign.webp"
           className="rounded-lg w-full object-cover"
         />
       </div>

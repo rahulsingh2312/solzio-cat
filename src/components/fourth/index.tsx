@@ -19,7 +19,7 @@ const WarningBanner = () => (
 
 
 const Fourth = () => (
-  <div id="buy" className=" min-h-screen  bg-[url('/bg4.png')] bg-cover bg-center bg-opacity-50 overflow-hidden">
+  <div id="buy" className=" min-h-screen  bg-[url('/bg4.webp')] bg-cover bg-center bg-opacity-50 overflow-hidden">
     <WarningBanner />
     <div className="container mx-auto p-4">
      

@@ -15,9 +15,9 @@ export default function Comm({ text, className = '', number }: CardProps) {
     <div className={`relative ${className}`}>
       <div 
        style={{
-        // backgroundImage: `url(${"/catpawprint.png"})`,
-        // maskImage: 'url("/catpawprint.png")', // You'll need to create this mask image
-        // WebkitMaskImage: 'url("/catpawprint.png")',
+        // backgroundImage: `url(${"/catpawprint.webp"})`,
+        // maskImage: 'url("/catpawprint.webp")', // You'll need to create this mask image
+        // WebkitMaskImage: 'url("/catpawprint.webp")',
         // maskSize: 'cover',
         // WebkitMaskSize: 'cover'
       }}
@@ -49,7 +49,7 @@ export default function Comm({ text, className = '', number }: CardProps) {
 
         {/* Adjusted Image section for both mobile and desktop */}
         <div className="flex justify-end md:justify-center items-end md:mt-0">
-          <Image src="/solocat.png" alt="raydium" width={800} height={800} className='w-[220px] h-[100px] md:w-[680px] md:h-[180px] lg:w-[1360px] lg:h-[360px]'/>
+          <Image src="/solocat.webp" alt="raydium" width={800} height={800} className='w-[220px] h-[100px] md:w-[680px] md:h-[180px] lg:w-[1360px] lg:h-[360px]'/>
         </div>
       </div>
 
@@ -58,9 +58,9 @@ export default function Comm({ text, className = '', number }: CardProps) {
 
       <div 
        style={{
-        // backgroundImage: `url(${"/catpawprint.png"})`,
-        // maskImage: 'url("/catpawprint.png")', // You'll need to create this mask image
-        // WebkitMaskImage: 'url("/catpawprint.png")',
+        // backgroundImage: `url(${"/catpawprint.webp"})`,
+        // maskImage: 'url("/catpawprint.webp")', // You'll need to create this mask image
+        // WebkitMaskImage: 'url("/catpawprint.webp")',
         // maskSize: 'cover',
         // WebkitMaskSize: 'cover',
         // opacity: 0.1 // Set the opacity to be very low
@@ -97,7 +97,7 @@ export default function Comm({ text, className = '', number }: CardProps) {
 
         {/* Right side - Image */}
         <div className="flex justify-end items-center">
-          <Image src="/catrah.png" alt="raydium" width={800} height={800} className='w-[100px] h-[150px] md:w-[680px] md:h-[180px]'/>
+          <Image src="/catrah.webp" alt="raydium" width={800} height={800} className='w-[100px] h-[150px] md:w-[680px] md:h-[180px]'/>
         </div>
       </div>
     </div>

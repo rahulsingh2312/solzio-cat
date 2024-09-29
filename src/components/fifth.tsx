@@ -8,7 +8,7 @@ import Comm from './comm'
 
 export default function Fifth() { 
   return (
-    <div id="roadmap" className='bg-[#f6e9b5] max-w-full min-h-screen bg-opacity-90 bg-cover bg-center bg-[url("/bg5.png")] overflow-hidden'>
+    <div id="roadmap" className='bg-[#f6e9b5] max-w-full min-h-screen bg-opacity-90 bg-cover bg-center bg-[url("/bg5.webp")] overflow-hidden'>
       <div className='flex text-4xl md:text-6xl text-black p-4 md:p-8 justify-center items-center'>
         <h1 className='text-stroke-white text-shadow-white text-center'>How to Buy?</h1>
       </div>
@@ -34,7 +34,7 @@ export default function Fifth() {
       <div className='flex flex-col md:flex-row justify-between items-center p-0 md:px-12 bg-black w-full md:min-h-[120px] text-white'>
   {/* Logo on the left */}
   <div className="flex w-full justify-between items-center">
-    <Image src="/logo.png" alt="raydium" width={100} height={100} className='md:mb-0' />
+    <Image src="/logo.webp" alt="raydium" width={100} height={100} className='md:mb-0' />
 
     {/* Copyright text only visible on mobile */}
     <p className="text-xs text-white md:hidden pr-10">Copyright @ SOLZIO CAT 2024</p>
