@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
         <div className="flex w-full items-center justify-between lg:w-auto lg:justify-start lg:gap-x-4">
           <div className="flex items-center text-black">
             <Image
-              src="/logo.webp"
+              src="/dbaslogobgr.webp"
               width={150}
               height={100}
               className="h-18 w-28 pl-4 lg:w-40 lg:pl-14"

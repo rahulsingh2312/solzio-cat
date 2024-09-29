@@ -6,7 +6,7 @@ const path = require('path');
 const startDir = './'; // Change this to your desired directory
 
 // Supported image extensions
-const imageExtensions = ['.jpg'];
+const imageExtensions = ['.png'];
 
 // Function to recursively find and convert images
 function convertImages(dir) {

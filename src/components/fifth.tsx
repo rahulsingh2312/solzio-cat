@@ -34,7 +34,7 @@ export default function Fifth() {
       <div className='flex flex-col md:flex-row justify-between items-center p-0 md:px-12 bg-black w-full md:min-h-[120px] text-white'>
   {/* Logo on the left */}
   <div className="flex w-full justify-between items-center">
-    <Image src="/logo.webp" alt="raydium" width={100} height={100} className='md:mb-0' />
+    <Image src="/dbaslogobgr.webp" alt="raydium" width={100} height={100} className='md:mb-0' />
 
     {/* Copyright text only visible on mobile */}
     <p className="text-xs text-white md:hidden pr-10">Copyright @ SOLZIO CAT 2024</p>
