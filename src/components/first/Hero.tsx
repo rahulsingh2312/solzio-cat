@@ -147,7 +147,7 @@ export default function Hero() {
           width={1800}
           height={1800}
           alt='catbg'
-          src="/imagee.png"
+          src="/SolzioCatDesign.png"
           className="rounded-lg w-full object-cover"
         />
       </div>

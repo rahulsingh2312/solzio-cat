@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Settings, ChevronDown } from 'lucide-react';
 import { CgSwapVertical } from "react-icons/cg";
 import WalletButton from '@/components/wallets/WalletButton';
-
+import Image from "next/image";
 const SwapInterface = ({ className }: { className: string }) => {
   const [ethAmount, setEthAmount] = useState('0.00');
   const [solzioAmount, setSolzioAmount] = useState('0.00');
@@ -19,7 +19,8 @@ const SwapInterface = ({ className }: { className: string }) => {
 
   const currencies = [
     { name: 'ETH', icon: <FaEthereum /> },
-    { name: 'DBAS', icon: <FaBitcoin /> },
+    { name: 'DBAS', icon: <div className="rounded-full "><Image className=" rounded-full" src="/dbaslogo.webp" width={20} height={20} alt={""} /> </div>},
+  
     // Add more currencies as needed
   ];
 
@@ -78,7 +79,7 @@ const SwapInterface = ({ className }: { className: string }) => {
                 onClick={() => setIsPayDropdownOpen(prev => !prev)} // Toggle dropdown
               >
                 {currencies.find(c => c.name === selectedPayCurrency)?.icon}
-                {selectedPayCurrency}
+             <span className="ml-2"> {selectedPayCurrency}</span>  
                 <ChevronDown className="ml-1" />
               </button>
               {isPayDropdownOpen && (
@@ -126,7 +127,7 @@ const SwapInterface = ({ className }: { className: string }) => {
                 onClick={() => setIsReceiveDropdownOpen(prev => !prev)} // Toggle dropdown
               >
                 {currencies.find(c => c.name === selectedReceiveCurrency)?.icon}
-                {selectedReceiveCurrency}
+                <span className="ml-2"> {selectedReceiveCurrency}</span>  
                 <ChevronDown className="ml-1" />
               </button>
               {isReceiveDropdownOpen && (
