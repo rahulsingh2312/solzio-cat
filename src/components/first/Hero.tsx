@@ -5,7 +5,7 @@ import { FaCheckCircle } from 'react-icons/fa';
 import { useToast } from "@/hooks/use-toast"
 import { useWallet } from '../wallets/WalletContextProvider';
 import { ethers, Contract } from "ethers"; // Ensure you import Contract
-import { contractAddress, contractABI } from '../../common/contract/contract'; // Adjust path as necessary
+import { tokenContractAddress, ponzioCatAbi } from '../../common/contract/contract'; // Adjust path as necessary
 
 export default function Hero() {
   const { walletAddress } = useWallet();
@@ -19,7 +19,7 @@ export default function Hero() {
         console.log(window.ethereum, walletAddress, "haha")
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
-        const contractInstance = new ethers.Contract(contractAddress, contractABI, signer);
+        const contractInstance = new ethers.Contract(tokenContractAddress, ponzioCatAbi, signer);
         setContract(contractInstance); // Now this will not cause a type error
       }
     };
@@ -51,7 +51,7 @@ export default function Hero() {
   const copyAddress = () => {
     if (navigator.clipboard && navigator.clipboard.writeText) {
       // Use clipboard API if available
-      navigator.clipboard.writeText(contractAddress)
+      navigator.clipboard.writeText(tokenContractAddress)
         .then(() => {
           setIsCopied(true);
           toast({
@@ -69,7 +69,7 @@ export default function Hero() {
     } else {
       // Fallback for mobile devices that do not support clipboard API
       const textArea = document.createElement('textarea');
-      textArea.value = contractAddress;
+      textArea.value = tokenContractAddress;
       document.body.appendChild(textArea);
       textArea.style.position = 'fixed';  // Avoid scrolling to bottom
       textArea.style.left = '-9999px';
@@ -157,7 +157,7 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
           <div className="w-full max-w-[345px] h-[60px] rounded-xl shadow border border-black bg-yellow-200 flex items-center justify-between px-4 py-2">
             <h1 className="text-black text-[20px] sm:text-[23px] font-normal">
-              {contractAddress}
+              {tokenContractAddress}
             </h1>
             <button
               onClick={copyAddress}

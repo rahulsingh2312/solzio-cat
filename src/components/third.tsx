@@ -1,5 +1,11 @@
-import React from 'react';
+'use client'; // This ensures the component is treated as a Client Component
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { ethers } from 'ethers';
+import {ponzioCatAbi, tokenContractAddress} from '../common/contract/contract'
+
+// Define your contract's ABI and address
+
 
 const PriceBox = ({ value, label }: { value: string, label: string }) => (
   <div className="relative mb-8">
@@ -31,6 +37,29 @@ const TimerBox = ({ value }: { value: string }) => (
 );
 
 export default function ResponsiveSolzioDashboard() {
+  const [totalSupply, setTotalSupply] = useState<string>('0');
+
+  // Function to fetch total supply from the contract
+  const fetchTotalSupply = async () => {
+    try {
+      // Set up ethers provider (Metamask, Infura, or any other provider)
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const contract = new ethers.Contract(tokenContractAddress, ponzioCatAbi, provider);
+      
+      // Call the totalSupply function
+      const supply = await contract.totalSupply();
+      
+      // Format the supply value (assuming it needs to be converted from wei)
+      setTotalSupply(ethers.utils.formatUnits(supply, 18)); // Adjust the decimals if needed
+    } catch (error) {
+      console.error("Error fetching total supply:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTotalSupply();
+  }, []); // Fetch when component mounts
+
   return (
     <div id="price" className="min-h-screen bg-[#fff4d8] overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative">
@@ -61,7 +90,7 @@ export default function ResponsiveSolzioDashboard() {
                 <div className="text-center text-black text-xl mt-2">Next Debase in</div>
               </div>
               
-              <PriceBox2 value="2.115964889526367" label="Total Supply" />
+              <PriceBox2 value={totalSupply} label="Total Supply" />
             </div>
           </div>
         </div>
