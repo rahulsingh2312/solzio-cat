@@ -9,18 +9,44 @@ import {
   univ2PairAddress
 } from '../../common/contract/contract';
 const AddLiquidity = () => {
+  
   const [getEthReserve, setEthReserve] = useState<any>(0);
+  const [getSolzioReserve, setSolzioReserve] = useState<any>(0);
+  const [getWalletAddress, setWalletAddress] = useState<any>(0);
+  const [getUserLp, setUserLp] = useState<number>(0);
 
   const getReserves = async() =>{
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
+  const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
+
     const reserve = await univ2Pair.getReserves();
     const ethReserve = (reserve.reserve0.toString())/10e17
-    console.log("ethReserve",ethReserve)
+    const solzioReserve = (reserve.reserve1.toString())/10e17
     setEthReserve(ethReserve);
+    setSolzioReserve(solzioReserve);
+  }
+
+  const fetchUserWalletAddress = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+ 
+    const signer = provider.getSigner();
+    const userWalletAddress = await signer.getAddress();
+    setWalletAddress(userWalletAddress);
+    console.log('userWalletAddress:', userWalletAddress)
+  }
+  const fetchLp = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
+    const signer = provider.getSigner();
+    const userWalletAddress = await signer.getAddress();
+    const userLp = (await univ2Pair.balanceOf(userWalletAddress)).toString();
+    setUserLp(userLp);
   }
   useEffect(() => {
-    getReserves()
+    getReserves();
+    fetchUserWalletAddress()
+    fetchLp()
+
   }, []);
   return (
         <div className="769:ml-20 1200:ml-0  mt-12 w-full md:w-[460px] text-xl font-sans border-[#bd8400] bg-[#FFD87F] border-4 rounded-lg max-w-m flex-col justify-between items-center mb-4">
@@ -31,7 +57,7 @@ const AddLiquidity = () => {
         <div className="flex justify-between items-center px-4 mb-2">
           <span className="font-semibold pr-4 md:pr-24">MY LP TOKENS</span>
           <div className="text-right">
-            <div className="font-semibold pl-4">0.00 LP</div>
+            <div className="font-semibold pl-4">{getUserLp} LP</div>
             <div className="text-sm text-black">$0.00</div>
           </div>
         </div>
@@ -40,7 +66,7 @@ const AddLiquidity = () => {
           <span className="font-semibold">TOTAL RESERVES</span>
           <div className="text-right">
             <div className="font-semibold">{getEthReserve} ETH</div>
-            <div>1,526 DBAS</div>
+            <div>{getSolzioReserve} DBAS</div>
           </div>
         </div>
         
