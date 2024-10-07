@@ -6,7 +6,7 @@ import { Settings, ChevronDown } from 'lucide-react';
 import { CgSwapVertical } from "react-icons/cg";
 import WalletButton from '@/components/wallets/WalletButton';
 import Image from "next/image";
-import { IUniswapV2RouterAbi, tokenContractAddress, routerAddress, routerAbi } from "@/common/contract/contract";
+import { tokenContractAddress, routerAddress, routerAbi, IWETHAbi, ponzioCatAbi } from "@/common/contract/contract";
 import { WETH_ADDRESS } from "@/common/contract/contract";
 
 const SwapInterface = ({ className }: { className: string }) => {
@@ -58,21 +58,42 @@ const SwapInterface = ({ className }: { className: string }) => {
       const user = await signer.getAddress()
 
       const routerContract = new ethers.Contract(routerAddress, routerAbi, signer);
-
+      const wethContract = new ethers.Contract(WETH_ADDRESS, IWETHAbi, signer);
+    
       // Construct the path of the swap
-      const path = [
-        selectedPayCurrency === 'ETH' ? WETH_ADDRESS : "ETH_CONTRACT_ADDRESS", // ETH or token address
-        selectedReceiveCurrency === 'DBAS' ? tokenContractAddress : "DBAS_CONTRACT_ADDRESS" , // DBAS or token address
-      ];
+      // const path = [
+      //   selectedPayCurrency === 'ETH' ? WETH_ADDRESS : "ETH_CONTRACT_ADDRESS", // ETH or token address
+      //   selectedReceiveCurrency === 'DBAS' ? tokenContractAddress : "DBAS_CONTRACT_ADDRESS" , // DBAS or token address
+      // ];
+      const path = ['0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', tokenContractAddress]
+      //const path = [WETH_ADDRESS, tokenContractAddress]
+      const feeData = await provider.getFeeData();
       const amountIn = ethers.utils.parseEther('1')
       const amountOutMin = ethers.utils.parseUnits("0", 18);
-      const deadline = Math.floor(Date.now() / 1000) + 60 * 20; 
+      const deadline = Math.floor(Date.now() / 1000) + 60 * 20;
+
+      // const approveWethTx = await wethContract.approve(routerAddress, amountIn,{
+      //   maxPriorityFeePerGas: feeData["maxPriorityFeePerGas"], 
+      //   maxFeePerGas: feeData["maxFeePerGas"], 
+      //   gasLimit: "3000000", 
+      // })
+      // const approveWethTxRecipet = await approveWethTx.wait();
+      // console.log("Approve Transaction successful with hash:", approveWethTxRecipet);
 
       const tx = await routerContract.swap(amountIn, amountOutMin, path, user, deadline, {
-        gasLimit: ethers.utils.hexlify(1000000)  // Set gas limit (adjust based on contract)
-    });
+        value: amountIn,
+        maxPriorityFeePerGas: feeData["maxPriorityFeePerGas"], 
+        maxFeePerGas: feeData["maxFeePerGas"], 
+        gasLimit: "3000000",
+      });
       const receipt = await tx.wait();
-      console.log("Transaction successful with hash:", receipt.transactionHash);
+      console.log("swap Transaction successful with hash:", receipt);
+
+      //check balance after swap
+      const ponzioContract = new ethers.Contract(tokenContractAddress,ponzioCatAbi,provider);
+      const userPonzioBalance = await ponzioContract.balanceOf(user);
+      console.log("New DBAS Balance:", ethers.utils.formatEther(userPonzioBalance));
+
     } catch (error) {
       console.error("Error swapping tokens:", error);
     }
