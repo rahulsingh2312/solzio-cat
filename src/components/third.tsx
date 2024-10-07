@@ -2,7 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { ethers } from 'ethers';
-import {ponzioCatAbi, tokenContractAddress} from '../common/contract/contract'
+import {
+  ponzioCatAbi, tokenContractAddress, IUniswapV2PairAbi, 
+  routerAbi,
+  routerAddress,
+  univ2PairAddress
+} from '../common/contract/contract'
 
 // Define your contract's ABI and address
 
@@ -38,6 +43,7 @@ const TimerBox = ({ value }: { value: string }) => (
 
 export default function ResponsiveSolzioDashboard() {
   const [totalSupply, setTotalSupply] = useState<string>('0');
+  const [currentPrice, setCurrentPrice] = useState<number>(0);
 
   // Function to fetch total supply from the contract
   const fetchTotalSupply = async () => {
@@ -56,8 +62,33 @@ export default function ResponsiveSolzioDashboard() {
     }
   };
 
+  const fetchCurrentPrice = async () =>{
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    // const routerContract = new ethers.Contract(routerAddress,routerAbi,provider);
+    // const uniV2PairInterface = new ethers.utils.Interface(univ2PairAddress)
+    // const price0 = await uniV2PairInterface.getFunction("price0CumulativeLast").inputs();
+    const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
+    const reserve = await univ2Pair.getReserves();
+    // const reserve1 = new ethers.BigNumber(reserve.reserve0);
+    const tokenPrice = ((reserve.reserve0).toString()/(reserve.reserve1).toString()* 2500);
+    setCurrentPrice(tokenPrice);
+  }
+
+  const timeRemainingForDebase = async () =>{
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const contract = new ethers.Contract(tokenContractAddress, ponzioCatAbi, provider);
+    const deployedTime = (await contract.DEPLOYED_TIME()).toString();
+    console.log("deployedTime", deployedTime)
+    const currentTimeStamp = (await provider.getBlock('latest')).timestamp;
+    console.log("currentTimeStamp", currentTimeStamp)
+    const nextDebaseIn = 2058-((currentTimeStamp - deployedTime)% 2058);
+    console.log("nextDebaseIn:",nextDebaseIn)
+  }
+
   useEffect(() => {
     fetchTotalSupply();
+    fetchCurrentPrice();
+    timeRemainingForDebase();
   }, []); // Fetch when component mounts
 
   return (
@@ -79,7 +110,7 @@ export default function ResponsiveSolzioDashboard() {
             </div>
             
             <div className="w-full md:w-1/3 max-w-[381px] flex flex-col items-center justify-center pt-24 p-8">
-              <PriceBox value="$386,836.44" label="Current Price" />
+              <PriceBox value={currentPrice.toString()} label="Current Price" />
               
               <div className="mb-8">
                 <div className="flex justify-center items-center gap-4">
