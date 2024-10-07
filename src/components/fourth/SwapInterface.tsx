@@ -6,7 +6,8 @@ import { Settings, ChevronDown } from 'lucide-react';
 import { CgSwapVertical } from "react-icons/cg";
 import WalletButton from '@/components/wallets/WalletButton';
 import Image from "next/image";
-import { routerAbi, tokenContractAddress, routerAddress } from "@/common/contract/contract";
+import { IUniswapV2RouterAbi, tokenContractAddress, routerAddress, routerAbi } from "@/common/contract/contract";
+import { WETH_ADDRESS } from "@/common/contract/contract";
 
 const SwapInterface = ({ className }: { className: string }) => {
   const [ethAmount, setEthAmount] = useState('0.00');
@@ -54,32 +55,26 @@ const SwapInterface = ({ className }: { className: string }) => {
 
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const signer = provider.getSigner();
+      const user = await signer.getAddress()
 
       const routerContract = new ethers.Contract(routerAddress, routerAbi, signer);
 
       // Construct the path of the swap
       const path = [
-        selectedPayCurrency === 'ETH' ? ethers.constants.AddressZero : "ETH_CONTRACT_ADDRESS", // ETH or token address
-        selectedReceiveCurrency === 'DBAS' ? "DBAS_CONTRACT_ADDRESS" : tokenContractAddress , // DBAS or token address
+        selectedPayCurrency === 'ETH' ? WETH_ADDRESS : "ETH_CONTRACT_ADDRESS", // ETH or token address
+        selectedReceiveCurrency === 'DBAS' ? tokenContractAddress : "DBAS_CONTRACT_ADDRESS" , // DBAS or token address
       ];
+      const amountIn = ethers.utils.parseEther('1')
+      const amountOutMin = ethers.utils.parseUnits("0", 18);
+      const deadline = Math.floor(Date.now() / 1000) + 60 * 20; 
 
-      // Request the transaction and await confirmation
-      // const swapTx = await routerContract.swap(
-      //   ethers.utils.parseUnits(ethAmount, 18), // amountIn
-      //   ethers.utils.parseUnits("0.00", 18), // amountOutMin, set to zero for now
-      //   path,
-      //   signer.getAddress(), // Receiver address
-      //   Math.floor(Date.now() / 1000) + 60 * 20 // Deadline: 20 minutes from now
-      // );
-
-      // // Wait for transaction to be mined
-      // await swapTx.wait();
-      console.log("ethAmount:",ethAmount, "solzioAmount:",solzioAmount)
-      console.log("Swap completed successfully!");
-      alert("Swap completed successfully!");
+      const tx = await routerContract.swap(amountIn, amountOutMin, path, user, deadline, {
+        gasLimit: ethers.utils.hexlify(1000000)  // Set gas limit (adjust based on contract)
+    });
+      const receipt = await tx.wait();
+      console.log("Transaction successful with hash:", receipt.transactionHash);
     } catch (error) {
       console.error("Error swapping tokens:", error);
-      alert(`Error swapping tokens: ${error.message}`);
     }
   };
 

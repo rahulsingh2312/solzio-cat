@@ -17,8 +17,7 @@ const AddLiquidity = () => {
 
   const getReserves = async() =>{
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
-
+    const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
     const reserve = await univ2Pair.getReserves();
     const ethReserve = (reserve.reserve0.toString())/10e17
     const solzioReserve = (reserve.reserve1.toString())/10e17
