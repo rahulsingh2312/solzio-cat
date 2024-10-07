@@ -42,8 +42,8 @@ const SwapInterface = ({ className }: { className: string }) => {
     setSelectedReceiveCurrency(tempCurrency);
 
     const tempAmount = ethAmount;
-    setEthAmount(solzioAmount);
-    setSolzioAmount(tempAmount);
+    setEthAmount('0');
+    setSolzioAmount('0');
   };
 
   // Swap Functionality using ethers.js
@@ -64,17 +64,17 @@ const SwapInterface = ({ className }: { className: string }) => {
       ];
 
       // Request the transaction and await confirmation
-      const swapTx = await routerContract.swap(
-        ethers.utils.parseUnits(ethAmount, 18), // amountIn
-        ethers.utils.parseUnits("0.00", 18), // amountOutMin, set to zero for now
-        path,
-        signer.getAddress(), // Receiver address
-        Math.floor(Date.now() / 1000) + 60 * 20 // Deadline: 20 minutes from now
-      );
+      // const swapTx = await routerContract.swap(
+      //   ethers.utils.parseUnits(ethAmount, 18), // amountIn
+      //   ethers.utils.parseUnits("0.00", 18), // amountOutMin, set to zero for now
+      //   path,
+      //   signer.getAddress(), // Receiver address
+      //   Math.floor(Date.now() / 1000) + 60 * 20 // Deadline: 20 minutes from now
+      // );
 
-      // Wait for transaction to be mined
-      await swapTx.wait();
-
+      // // Wait for transaction to be mined
+      // await swapTx.wait();
+      console.log("ethAmount:",ethAmount, "solzioAmount:",solzioAmount)
       console.log("Swap completed successfully!");
       alert("Swap completed successfully!");
     } catch (error) {
@@ -101,8 +101,8 @@ const SwapInterface = ({ className }: { className: string }) => {
           <div className="flex justify-between items-center">
             <input
               type="number"
-              value={ethAmount}
-              onChange={(e) => setEthAmount(e.target.value)}
+              value={selectedPayCurrency =='ETH'? ethAmount: solzioAmount}
+              onChange={(e) => selectedPayCurrency =='ETH'? setEthAmount(e.target.value): setSolzioAmount(e.target.value)}
               className="text-2xl bg-transparent w-1/2 outline-none"
               placeholder="0.00"
             />
@@ -149,8 +149,8 @@ const SwapInterface = ({ className }: { className: string }) => {
           <div className="flex justify-between items-center">
             <input
               type="number"
-              value={solzioAmount}
-              onChange={(e) => setSolzioAmount(e.target.value)}
+              value={selectedReceiveCurrency =='DBAS'? solzioAmount: ethAmount}
+              onChange={(e) => selectedReceiveCurrency =='DBAS'? setSolzioAmount(e.target.value): setEthAmount(e.target.value)}
               className="text-2xl bg-transparent w-1/2 outline-none"
               placeholder="0.00"
             />

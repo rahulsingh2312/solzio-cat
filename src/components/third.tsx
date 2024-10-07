@@ -7,7 +7,7 @@ import {
   routerAbi,
   routerAddress,
   univ2PairAddress
-} from '../common/contract/contract'
+} from '../common/contract/contract';
 
 // Define your contract's ABI and address
 
@@ -43,7 +43,10 @@ const TimerBox = ({ value }: { value: string }) => (
 
 export default function ResponsiveSolzioDashboard() {
   const [totalSupply, setTotalSupply] = useState<string>('0');
-  const [currentPrice, setCurrentPrice] = useState<number>(0);
+  const [currentPrice, setCurrentPrice] = useState<string>('0');
+  const [getHour, setHour] = useState<number>(0);
+  const [getMinute, setMinute] = useState<number>(0);
+  const [getSecond, setSecond] = useState<number>(0);
 
   // Function to fetch total supply from the contract
   const fetchTotalSupply = async () => {
@@ -64,13 +67,12 @@ export default function ResponsiveSolzioDashboard() {
 
   const fetchCurrentPrice = async () =>{
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-    // const routerContract = new ethers.Contract(routerAddress,routerAbi,provider);
-    // const uniV2PairInterface = new ethers.utils.Interface(univ2PairAddress)
-    // const price0 = await uniV2PairInterface.getFunction("price0CumulativeLast").inputs();
     const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
     const reserve = await univ2Pair.getReserves();
     // const reserve1 = new ethers.BigNumber(reserve.reserve0);
-    const tokenPrice = ((reserve.reserve0).toString()/(reserve.reserve1).toString()* 2500);
+    const etherScanProvider = new ethers.providers.EtherscanProvider("homestead","71H5MYFEP5ZA8XDYVT1W6D3MCIACKDCB8Y")
+    const etherPrice = await etherScanProvider.getEtherPrice();
+    const tokenPrice = (((reserve.reserve0)/(reserve.reserve1))*etherPrice).toFixed(5);
     setCurrentPrice(tokenPrice);
   }
 
@@ -79,11 +81,20 @@ export default function ResponsiveSolzioDashboard() {
     const contract = new ethers.Contract(tokenContractAddress, ponzioCatAbi, provider);
     const deployedTime = (await contract.DEPLOYED_TIME()).toString();
     console.log("deployedTime", deployedTime)
-    const currentTimeStamp = (await provider.getBlock('latest')).timestamp;
+    const currentTimeStamp = Math.floor((Date.now()/1000));
     console.log("currentTimeStamp", currentTimeStamp)
     const nextDebaseIn = 2058-((currentTimeStamp - deployedTime)% 2058);
-    console.log("nextDebaseIn:",nextDebaseIn)
+    convertSeconds(nextDebaseIn);
   }
+
+  const convertSeconds = (seconds: number) => {
+    const hours = Math.floor(seconds / 3600); // 1 hour = 3600 seconds
+    const minutes = Math.floor((seconds % 3600) / 60); // Remaining minutes
+    const remainingSeconds = seconds % 60; // Remaining seconds
+    setHour(hours);
+    setMinute(minutes);
+    setSecond(remainingSeconds)
+  };
 
   useEffect(() => {
     fetchTotalSupply();
@@ -110,11 +121,11 @@ export default function ResponsiveSolzioDashboard() {
             </div>
             
             <div className="w-full md:w-1/3 max-w-[381px] flex flex-col items-center justify-center pt-24 p-8">
-              <PriceBox value={currentPrice.toString()} label="Current Price" />
+              <PriceBox value={`$${currentPrice}`} label="Current Price" />
               
               <div className="mb-8">
                 <div className="flex justify-center items-center gap-4">
-                  {['0h', '12m', '10s'].map((text, index) => (
+                  {[`${getHour}`, `${getMinute}`, `${getSecond}`].map((text, index) => (
                     <TimerBox key={index} value={text} />
                   ))}
                 </div>
