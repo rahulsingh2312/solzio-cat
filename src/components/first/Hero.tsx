@@ -96,6 +96,17 @@ export default function Hero() {
 
 
   };
+  // Function to truncate the address
+  const truncateAddress = (address: string | any[], firstCount = 12, lastCount = 10, middleCount = 6) => {
+    if (address.length <= firstCount + lastCount) {
+      return address;
+    }
+    const firstPart = address.slice(0, firstCount);
+    const lastPart = address.slice(-lastCount);
+    const middlePart = '...'; // You can customize this as per your design
+
+    return `${firstPart}${middlePart}${lastPart}`;
+  };
     return (
       <main className="container mx-auto px-4 py-12 z-10 relative overflow-hidden">
 
@@ -157,7 +168,7 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
           <div className="w-full max-w-[345px] h-[60px] rounded-xl shadow border border-black bg-yellow-200 flex items-center justify-between px-4 py-2">
             <h1 className="text-black text-[20px] sm:text-[23px] font-normal">
-              {tokenContractAddress}
+            {truncateAddress(tokenContractAddress)}
             </h1>
             <button
               onClick={copyAddress}
