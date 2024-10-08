@@ -52,6 +52,7 @@ export default function ResponsiveSolzioDashboard() {
   const fetchTotalSupply = async () => {
     try {
       // Set up ethers provider (Metamask, Infura, or any other provider)
+       // @ts-ignore
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const contract = new ethers.Contract(tokenContractAddress, ponzioCatAbi, provider);
       
@@ -66,6 +67,7 @@ export default function ResponsiveSolzioDashboard() {
   };
 
   const fetchCurrentPrice = async () =>{
+     // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
     const reserve = await univ2Pair.getReserves();
@@ -77,6 +79,7 @@ export default function ResponsiveSolzioDashboard() {
   }
 
   const timeRemainingForDebase = async () =>{
+     // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const contract = new ethers.Contract(tokenContractAddress, ponzioCatAbi, provider);
     const deployedTime = (await contract.DEPLOYED_TIME()).toString();
@@ -117,7 +120,8 @@ export default function ResponsiveSolzioDashboard() {
           
           <div className="flex flex-col md:flex-row justify-between items-start gap-8">
             <div className="w-full md:w-2/3">
-              <Image src="/Body.svg" alt="chart" width={800} height={800} className="object-contain" />
+            <iframe id="dextools-widget" title="DEXTools Trading Chart" className="w-full h-[500px] rounded-lg shadow-2xl" src="https://www.dextools.io/widget-chart/en/ether/pe-light/0x90908e414d3525e33733d320798b5681508255ea?theme=dark&amp;chartType=1&amp;chartResolution=30&amp;drawingToolbars=false"></iframe>
+              {/* <Image src="/Body.svg" alt="chart" width={800} height={800} className="object-contain" /> */}
             </div>
             
             <div className="w-full md:w-1/3 max-w-[381px] flex flex-col items-center justify-center pt-24 p-8">

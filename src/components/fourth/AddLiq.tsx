@@ -16,6 +16,7 @@ const AddLiquidity = () => {
   const [getUserLp, setUserLp] = useState<number>(0);
 
   const getReserves = async() =>{
+    // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
     const reserve = await univ2Pair.getReserves();
@@ -26,6 +27,7 @@ const AddLiquidity = () => {
   }
 
   const fetchUserWalletAddress = async () => {
+     // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
  
     const signer = provider.getSigner();
@@ -34,6 +36,7 @@ const AddLiquidity = () => {
     console.log('userWalletAddress:', userWalletAddress)
   }
   const fetchLp = async () => {
+     // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
     const signer = provider.getSigner();
