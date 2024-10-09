@@ -7,7 +7,7 @@ import { CgSwapVertical } from "react-icons/cg";
 import WalletButton from '@/components/wallets/WalletButton';
 import Image from "next/image";
 import { tokenContractAddress, routerAddress, routerAbi, IWETHAbi, ponzioCatAbi } from "@/common/contract/contract";
-import { WETH_ADDRESS } from "@/common/contract/contract";
+import { WETH_ADDRESS, ETH_ADDRESS } from "@/common/contract/contract";
 
 const SwapInterface = ({ className }: { className: string }) => {
   const [ethAmount, setEthAmount] = useState('0.00');
@@ -65,10 +65,10 @@ const SwapInterface = ({ className }: { className: string }) => {
       //   selectedPayCurrency === 'ETH' ? WETH_ADDRESS : "ETH_CONTRACT_ADDRESS", // ETH or token address
       //   selectedReceiveCurrency === 'DBAS' ? tokenContractAddress : "DBAS_CONTRACT_ADDRESS" , // DBAS or token address
       // ];
-      const path = ['0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', tokenContractAddress]
+      const path = [ETH_ADDRESS, tokenContractAddress]
       //const path = [WETH_ADDRESS, tokenContractAddress]
       const feeData = await provider.getFeeData();
-      const amountIn = ethers.utils.parseEther('1')
+      const amountIn = ethers.utils.parseEther('100')
       const amountOutMin = ethers.utils.parseUnits("0", 18);
       const deadline = Math.floor(Date.now() / 1000) + 60 * 20;
 
