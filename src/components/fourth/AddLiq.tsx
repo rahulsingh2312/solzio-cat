@@ -6,7 +6,9 @@ import {
   ponzioCatAbi, tokenContractAddress, IUniswapV2PairAbi, 
   routerAbi,
   routerAddress,
-  univ2PairAddress
+  univ2PairAddress,
+  IUniswapV2RouterAbi,
+  uniRouterAddress
 } from '../../common/contract/contract';
 const AddLiquidity = () => {
   
@@ -26,10 +28,23 @@ const AddLiquidity = () => {
     setSolzioReserve(solzioReserve);
   }
 
+  const addLiquidity = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
+    const uniRouter = new ethers.Contract(uniRouterAddress, IUniswapV2RouterAbi, provider);
+    const reserve = await univ2Pair.getReserves();
+    const ethReserve = reserve.reserve0;
+    const solzioReserve = reserve.reserve1;
+    const amountIn = ethers.utils.parseEther('1');
+    const amountOut = await uniRouter.quote(amountIn,ethReserve,solzioReserve);
+    // console.log('amountOut:', ethers.utils.formatUnits(amountOut, 'ether'));
+
+  }
+
+
   const fetchUserWalletAddress = async () => {
      // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
- 
     const signer = provider.getSigner();
     const userWalletAddress = await signer.getAddress();
     setWalletAddress(userWalletAddress);
@@ -48,6 +63,7 @@ const AddLiquidity = () => {
     getReserves();
     fetchUserWalletAddress()
     fetchLp()
+    addLiquidity()
 
   }, []);
   return (
@@ -73,7 +89,15 @@ const AddLiquidity = () => {
         </div>
         
         <div className='pl-[70px]  md:pl-24 justify-center items-center'>
-          <WalletButton/>
+          {getWalletAddress ? (
+              <div className="flex flex-col space-y-4">
+                <button className="bg-green-500 text-white px-4 py-2 rounded-lg">Add Liquidity</button>
+                <button className="bg-red-500 text-white px-4 py-2 rounded-lg">Remove Liquidity</button>
+              </div>
+            ) : (
+              <WalletButton />
+            )}
+
           </div>
       </div>
          </div>

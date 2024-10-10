@@ -1,19 +1,35 @@
 "use client";
 import { FaEthereum, FaBitcoin } from "react-icons/fa";
-import React, { useState } from 'react';
-import { ethers } from 'ethers'; // Import ethers
+import React, { useEffect, useState } from 'react';
+import { BigNumber, ethers } from 'ethers'; // Import ethers
 import { Settings, ChevronDown } from 'lucide-react';
 import { CgSwapVertical } from "react-icons/cg";
 import WalletButton from '@/components/wallets/WalletButton';
 import Image from "next/image";
-import { tokenContractAddress, routerAddress, routerAbi, IWETHAbi, ponzioCatAbi, 
-  IERC20Abi, IUniswapV2RouterAbi, univ2PairAddress, IUniswapV2PairAbi } from "@/common/contract/contract";
-import { WETH_ADDRESS, ETH_ADDRESS } from "@/common/contract/contract";
+import {
+  tokenContractAddress,
+  routerAddress,
+  routerAbi,
+  IWETHAbi,
+  ponzioCatAbi,
+  IERC20Abi,
+  IUniswapV2RouterAbi,
+  univ2PairAddress, IUniswapV2PairAbi,
+  uniRouterAddress,
+  WETH_ADDRESS,
+  ETH_ADDRESS
+
+} from "@/common/contract/contract";
+
 import { sign } from "crypto";
 
 const SwapInterface = ({ className }: { className: string }) => {
   const [ethAmount, setEthAmount] = useState<string>('0.00');
   const [solzioAmount, setSolzioAmount] = useState<string>('0.00');
+  const [ethBalance, setEthBalance] = useState<string>('0.00');
+  const [solzioBalance, setSolzioBalance] = useState<string>('0.00');
+  const [ethReserve,setEthReserve] = useState<string>('0');
+  const [solzioReserve,setSolzioReserve] = useState<string>('0');
 
   // State for dropdowns
   const [selectedPayCurrency, setSelectedPayCurrency] = useState('ETH');
@@ -25,7 +41,7 @@ const SwapInterface = ({ className }: { className: string }) => {
 
   const currencies = [
     { name: 'ETH', icon: <FaEthereum /> },
-    { name: 'DBAS', icon: <div className="rounded-full "><Image className=" rounded-full" src="/dbaslogo.webp" width={20} height={20} alt={""} /> </div>},
+    { name: 'DBAS', icon: <div className="rounded-full "><Image className=" rounded-full" src="/dbaslogo.webp" width={20} height={20} alt={""} /> </div> },
   ];
 
   const handlePayCurrencySelect = (currency: string) => {
@@ -59,15 +75,15 @@ const SwapInterface = ({ className }: { className: string }) => {
       const signer = provider.getSigner();
       const user = await signer.getAddress()
 
-      const IUniswapV2RouterContract = new ethers.Contract(routerAddress, IUniswapV2RouterAbi,signer);
+      const IUniswapV2RouterContract = new ethers.Contract(routerAddress, IUniswapV2RouterAbi, signer);
       const routerContract = new ethers.Contract(routerAddress, routerAbi, signer);
       const wethContract = new ethers.Contract(WETH_ADDRESS, IWETHAbi, signer);
       const tokenContract = new ethers.Contract(tokenContractAddress, IERC20Abi, signer)
-    
+
       // Construct the path of the swap
       const path = [
         selectedPayCurrency === 'ETH' ? ETH_ADDRESS : tokenContractAddress, // ETH or token address
-        selectedReceiveCurrency === 'DBAS' ? tokenContractAddress : ETH_ADDRESS , // DBAS or token address
+        selectedReceiveCurrency === 'DBAS' ? tokenContractAddress : ETH_ADDRESS, // DBAS or token address
       ];
       // const path = [ETH_ADDRESS, tokenContractAddress]
       // const path = [WETH_ADDRESS, tokenContractAddress]
@@ -76,30 +92,30 @@ const SwapInterface = ({ className }: { className: string }) => {
       const deadline = Math.floor(Date.now() / 1000) + 60 * 20;
 
       let tx;
-      if(selectedPayCurrency == 'ETH'){
+      if (selectedPayCurrency == 'ETH') {
         const amountIn = ethers.utils.parseEther(ethAmount);
-        console.log('amountIn:',amountIn)
-        tx = await routerContract.swap(amountIn,amountOutMin, path, user, deadline, {
+        console.log('amountIn:', amountIn)
+        tx = await routerContract.swap(amountIn, amountOutMin, path, user, deadline, {
           value: amountIn,
-          maxPriorityFeePerGas: feeData["maxPriorityFeePerGas"], 
-          maxFeePerGas: feeData["maxFeePerGas"], 
+          maxPriorityFeePerGas: feeData["maxPriorityFeePerGas"],
+          maxFeePerGas: feeData["maxFeePerGas"],
           gasLimit: "3000000",
         });
         const receipt = await tx.wait();
         console.log("ETH<>DBAS swap Transaction successful with hash:", receipt);
-      }else {
-        console.log('selectedPayCurrency:',selectedPayCurrency)
+      } else {
+        console.log('selectedPayCurrency:', selectedPayCurrency)
         const amountIn = ethers.utils.parseEther(solzioAmount);
-        console.log('amountIn:',amountIn)
+        console.log('amountIn:', amountIn)
         console.log('PATH:', path)
 
-        const tokenAprroveTx = await tokenContract.approve(routerAddress,amountIn);
+        const tokenAprroveTx = await tokenContract.approve(routerAddress, amountIn);
         const tokenAprroveTxReceipt = await tokenAprroveTx.wait();
         console.log("DBAS Approve Transaction successful with hash:", tokenAprroveTxReceipt);
 
         const tx = await routerContract.swap(amountIn, amountOutMin, path, user, deadline, {
-          maxPriorityFeePerGas: feeData["maxPriorityFeePerGas"], 
-          maxFeePerGas: feeData["maxFeePerGas"], 
+          maxPriorityFeePerGas: feeData["maxPriorityFeePerGas"],
+          maxFeePerGas: feeData["maxFeePerGas"],
           gasLimit: "3000000",
         });
         const receipt = await tx.wait();
@@ -107,46 +123,60 @@ const SwapInterface = ({ className }: { className: string }) => {
       }
 
       //check balance after swap
-      const ponzioContract = new ethers.Contract(tokenContractAddress,ponzioCatAbi,provider);
+      const ponzioContract = new ethers.Contract(tokenContractAddress, ponzioCatAbi, provider);
       const userPonzioBalance = await ponzioContract.balanceOf(user);
       console.log("New DBAS Balance:", ethers.utils.formatEther(userPonzioBalance));
-      
 
     } catch (error) {
       console.error("Error swapping tokens:", error);
     }
   };
-  const userInput = async(value:string) => {
-    
+  
+  const quote = async (value: string) => {
     if (!window.ethereum) throw new Error("Ethereum provider not found");
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      const user = await signer.getAddress()
-      const uniswapV2RouterContract = new ethers.Contract(routerAddress, IUniswapV2RouterAbi,signer);
-      const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
-      const reserve = await univ2Pair.getReserves();
-    selectedPayCurrency =='ETH'? setEthAmount(value): setSolzioAmount(value);
-    if(selectedReceiveCurrency == 'DBAS'){
-        console.log("INPUTS:", ethers.utils.parseEther(ethAmount),
-        reserve.reserve0,
-        reserve.reserve1)
-        const amountOut = await uniswapV2RouterContract.quote(
-          ethers.utils.parseEther(ethAmount),
-          reserve.reserve0,
-          reserve.reserve1
-        )
-        console.log('DBAS Amount:', amountOut, amountOut.toString())
-        setSolzioAmount(amountOut.toString());
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const user = await signer.getAddress()
+    const uniRouter = new ethers.Contract(uniRouterAddress, IUniswapV2RouterAbi, provider);
+    const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
+    const reserve = await univ2Pair.getReserves();
+
+    if (selectedPayCurrency == 'ETH' && selectedReceiveCurrency == 'DBAS')  {
+      setEthAmount(value)
+      const amountIn = ethers.utils.parseEther(ethAmount);
+      const amountOut = await uniRouter.quote(amountIn,reserve.reserve0, reserve.reserve1);
+      console.log("AmountOut:", amountOut, ethers.utils.formatEther(amountOut));
+      setSolzioAmount(ethers.utils.formatEther(amountOut));
     } else {
-      const amountOut = await uniswapV2RouterContract.quote(
-        ethers.utils.parseEther(solzioAmount),
-        reserve.reserve1,
-        reserve.reserve0
-      )
-      setEthAmount(amountOut.toString());
+      setSolzioAmount(value)
+      const amountIn = ethers.utils.parseEther(solzioAmount);
+      const amountOut = await uniRouter.quote(amountIn,reserve.reserve1, reserve.reserve0);
+      console.log("AmountOut:", amountOut, ethers.utils.formatEther(amountOut));
+      setEthAmount(ethers.utils.formatEther(amountOut));
     }
-    
   }
+
+  const getUserBalances = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const user = await signer.getAddress()
+
+    if (selectedPayCurrency == 'ETH' && selectedReceiveCurrency == 'DBAS') {
+      const ethBal = Number((ethers.utils.formatUnits(await signer.getBalance(), 'ether'))).toFixed(3);
+      setEthBalance(ethBal);
+    } else if(selectedPayCurrency == 'DBAS' && selectedReceiveCurrency == 'ETH') {
+      const ponzioContract = new ethers.Contract(tokenContractAddress, ponzioCatAbi, provider);
+      const userPonzioBalance = await ponzioContract.balanceOf(user);
+      const dbasBal = Number(ethers.utils.formatEther(userPonzioBalance.toString())).toFixed(3);
+      setSolzioBalance(dbasBal)
+    }
+  }
+
+  useEffect(() => {
+    if (window.ethereum) {
+      getUserBalances(); // Call the function as soon as the wallet is connected
+    }
+  }, [selectedPayCurrency]);
 
   return (
     <div className={`font-sans border-[#bd8400] h-[518px] w-[360px] border-4 bg-[#FFD87F] rounded-lg max-w-m ${className}} md:w-[360px] md:h-[518px]`} >
@@ -161,13 +191,15 @@ const SwapInterface = ({ className }: { className: string }) => {
         <div className="border-2 border-black rounded-lg p-3 mb-2">
           <div className="flex justify-between mb-1 gap-12">
             <span className="text-black text-xl">You Pay</span>
-            <span className="text-black pr-2">Balance: 0.00 MAX</span>
+            <span className="text-black pr-2">Balance: {
+                selectedPayCurrency == 'ETH' ? ethBalance : solzioBalance
+              } </span>
           </div>
           <div className="flex justify-between items-center">
             <input
               type="number"
-              value={selectedPayCurrency =='ETH'? ethAmount: solzioAmount}
-              onChange={(e) => userInput(e.target.value)}
+              value={selectedPayCurrency == 'ETH' ? ethAmount : solzioAmount}
+              onChange={(e) => quote(e.target.value)}
               className="text-2xl bg-transparent w-1/2 outline-none"
               placeholder="0.00"
             />
@@ -209,18 +241,18 @@ const SwapInterface = ({ className }: { className: string }) => {
         <div className="bg-gray-100 border-2 border-black rounded-lg p-3 mb-4">
           <div className="flex justify-between mb-1">
             <span className="text-black">You Receive</span>
-            <span className="text-black pr-2">Balance: 0.00 MAX</span>
+            {/* <span className="text-black pr-2">Balance: 0.00 MAX</span> */}
           </div>
           <div className="flex justify-between items-center">
             {/* <input
               type="number"
               value={selectedReceiveCurrency =='DBAS'? solzioAmount: ethAmount}
-              onChange={(e) => selectedReceiveCurrency =='DBAS'? setSolzioAmount(e.target.value): setEthAmount(e.target.value)}
+              onChange={(e) => quote(e.target.value)}
               className="text-2xl bg-transparent w-1/2 outline-none"
               placeholder="0.00"
             /> */}
             {
-              solzioAmount
+              selectedReceiveCurrency == 'DBAS' ? solzioAmount : ethAmount
             }
             <div className="relative">
               <button
@@ -250,7 +282,7 @@ const SwapInterface = ({ className }: { className: string }) => {
         </div>
 
         {/* Slippage Tolerance Section */}
-        <div className="bg-gray-100 border-2 border-black rounded-lg p-3 mb-4">
+        {/* <div className="bg-gray-100 border-2 border-black rounded-lg p-3 mb-4">
           <div className="flex justify-between mb-1">
             <span className="text-black">Slippage Tolerance</span>
           </div>
@@ -262,7 +294,7 @@ const SwapInterface = ({ className }: { className: string }) => {
               placeholder="1.0%"
             />
           </div>
-        </div>
+        </div> */}
 
         {/* Swap Button */}
         <button
