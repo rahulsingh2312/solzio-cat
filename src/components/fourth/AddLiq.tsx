@@ -10,8 +10,8 @@ import {
 
 const AddLiquidity = () => {
   const { walletAddress } = useWallet(); // Get wallet address from context
-  const [getEthReserve, setEthReserve] = useState<number>(0);
-  const [getSolzioReserve, setSolzioReserve] = useState<number>(0);
+  const [getEthReserve, setEthReserve] = useState<string>('0');
+  const [getSolzioReserve, setSolzioReserve] = useState<string>('0');
   const [getUserLp, setUserLp] = useState<number>(0);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
@@ -20,8 +20,8 @@ const AddLiquidity = () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
     const reserve = await univ2Pair.getReserves();
-    setEthReserve(reserve.reserve0.toNumber() / 1e18);
-    setSolzioReserve(reserve.reserve1.toNumber() / 1e18);
+    setEthReserve(Number((ethers.utils.formatEther(reserve.reserve0))).toFixed(3))
+    setSolzioReserve(Number((ethers.utils.formatEther(reserve.reserve1))).toFixed(3))
   };
 
   const fetchLp = async () => {
