@@ -5,14 +5,23 @@ import { useWallet } from '../wallets/WalletContextProvider'; // Adjust the impo
 import WalletButton from '@/components/wallets/CustomWalletConnect'; // Updated import
 import {
   IUniswapV2PairAbi,
-  univ2PairAddress
+  univ2PairAddress,
+  routerAddress,
+  routerAbi,
+  tokenContractAddress,
+  IERC20Abi,
+  uniRouterAddress,
+  IUniswapV2RouterAbi
+
+
 } from '../../common/contract/contract';
+import { sign } from 'crypto';
 
 const AddLiquidity = () => {
   const { walletAddress } = useWallet(); // Get wallet address from context
   const [getEthReserve, setEthReserve] = useState<string>('0');
   const [getSolzioReserve, setSolzioReserve] = useState<string>('0');
-  const [getUserLp, setUserLp] = useState<number>(0);
+  const [getUserLp, setUserLp] = useState<string>('0');
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
 
@@ -27,7 +36,7 @@ const AddLiquidity = () => {
   const fetchLp = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
-    const userLp = (await univ2Pair.balanceOf(walletAddress)).toString();
+    const userLp = Number((ethers.utils.formatEther(await univ2Pair.balanceOf(walletAddress)))).toFixed(3);
     setUserLp(userLp);
   };
 
@@ -41,33 +50,58 @@ const AddLiquidity = () => {
   const handleSubmitAddLiquidity = async (ethAmount, tokenAmount) => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
-    const contract = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, signer);
+    const signerAddress = await signer.getAddress();
+    const router = new ethers.Contract(routerAddress, routerAbi, signer);
+    const amountWETHDesired =  ethers.utils.parseEther(ethAmount)
+    const amountPonzioDesired  = ethers.utils.parseEther(tokenAmount)
+    const amountETHMin =  ethers.utils.parseEther('0')
+    const amountPonzioMin =  ethers.utils.parseEther('0')
+    const to =  signerAddress;
+    const feeData = await provider.getFeeData();
+    const tokenContract = new ethers.Contract(tokenContractAddress, IERC20Abi, signer);
 
     try {
-      // const tx = await contract.addLiquidity(
-      //   {
-      //     value: ethers.utils.parseEther(ethAmount), // Convert ETH amount to wei
-      //   },
-      //   tokenAmount // Token amount (ensure it's formatted correctly)
-      // );
-      // await tx.wait();
-      // console.log('Liquidity added successfully!', tx);
-      // Refresh state or notify user as needed
+      const tokenAprroveTx = await tokenContract.approve(routerAddress, amountPonzioDesired);
+      const tokenAprroveTxReceipt = await tokenAprroveTx.wait();
+      console.log("DBAS Approve Transaction successful with hash:", tokenAprroveTxReceipt);
+      const addLiquidityTx = await router.updateSupplyAndAddLiquidity(amountWETHDesired, amountPonzioDesired, amountETHMin, amountPonzioMin, to, {
+          value: amountWETHDesired,
+          maxPriorityFeePerGas: feeData["maxPriorityFeePerGas"],
+          maxFeePerGas: feeData["maxFeePerGas"],
+          gasLimit: "3000000",
+      })
+      const addLiquidityTxReciept = await tokenAprroveTx.wait();
+      console.log("LP Add successful with hash:", addLiquidityTxReciept);
     } catch (error) {
       console.error('Error adding liquidity:', error);
     }
   };
 
   const handleSubmitRemoveLiquidity = async (lpAmount) => {
+    
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
-    const contract = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, signer);
+    const uniRouter = new ethers.Contract(uniRouterAddress, IUniswapV2RouterAbi, signer);
+    const feeData = await provider.getFeeData();
+    const token = tokenContractAddress;
+    const liquidity = ethers.utils.parseEther(lpAmount);
+    const amountTokenMin = ethers.utils.parseEther('0');
+    const amountETHMin = ethers.utils.parseEther('0');
+    const to = await signer.getAddress()
+    const deadline = Math.floor(Date.now() / 1000) + 60 * 20;
+    const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi,signer);
 
     try {
-      const tx = await contract.removeLiquidity(lpAmount);
-      await tx.wait();
-      console.log('Liquidity removed successfully!', tx);
-      // Refresh state or notify user as needed
+      const lpApproveTx = await univ2Pair.approve(uniRouterAddress,liquidity);
+      const lpApproveTxReciept = await lpApproveTx.wait()
+      const removeLiquidityTx = await uniRouter.removeLiquidityETH(token, liquidity, amountTokenMin, amountETHMin, to, deadline, {
+        maxPriorityFeePerGas: feeData["maxPriorityFeePerGas"],
+          maxFeePerGas: feeData["maxFeePerGas"],
+          gasLimit: "3000000",
+      });
+      const removeLiquidityTxReciept = await removeLiquidityTx.wait()
+      console.log("LP remove successful with hash:", removeLiquidityTxReciept);
+        
     } catch (error) {
       console.error('Error removing liquidity:', error);
     }
@@ -78,9 +112,16 @@ const AddLiquidity = () => {
     const [dbasTokenAmount, setDbasTokenAmount] = useState<string>('0');
     const [loading, setLoading] = useState(false);
 
-    const handleInput = (value) => {
+    const handleInput = async (value) => {
       setEthAmount(value);
-      setDbasTokenAmount(value); // Assuming token amount is derived from ETH amount for this example
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const uniRouter = new ethers.Contract(uniRouterAddress, IUniswapV2RouterAbi, provider);
+      const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
+      const reserve = await univ2Pair.getReserves();
+      const ethInput = ethers.utils.parseEther(value);
+      const amountOut = await uniRouter.quote(ethInput,reserve.reserve0, reserve.reserve1);
+      const dbasAmount = Number(ethers.utils.formatEther(amountOut)).toFixed(3);
+      setDbasTokenAmount(dbasAmount);
     };
 
     const handleSubmit = async (e) => {
