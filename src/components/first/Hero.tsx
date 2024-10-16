@@ -16,7 +16,6 @@ export default function Hero() {
   useEffect(() => {
     const initContract = async () => {
       if (window.ethereum && walletAddress) {
-        console.log(window.ethereum, walletAddress, "haha")
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         const signer = provider.getSigner();
         const contractInstance = new ethers.Contract(tokenContractAddress, ponzioCatAbi, signer);
@@ -34,7 +33,6 @@ export default function Hero() {
       }
   
       try {
-        console.log(window.ethereum)
         // const tx = await contract.buy({ value: ethers.utils.parseEther("0.1") }); // Set amount as needed
         // await tx.wait();
       } catch (error) {

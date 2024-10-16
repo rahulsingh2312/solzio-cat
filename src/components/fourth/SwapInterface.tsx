@@ -94,7 +94,6 @@ const SwapInterface = ({ className }: { className: string }) => {
       let tx;
       if (selectedPayCurrency == 'ETH') {
         const amountIn = ethers.utils.parseEther(ethAmount);
-        console.log('amountIn:', amountIn)
         tx = await routerContract.swap(amountIn, amountOutMin, path, user, deadline, {
           value: amountIn,
           maxPriorityFeePerGas: feeData["maxPriorityFeePerGas"],
@@ -102,16 +101,11 @@ const SwapInterface = ({ className }: { className: string }) => {
           gasLimit: "3000000",
         });
         const receipt = await tx.wait();
-        console.log("ETH<>DBAS swap Transaction successful with hash:", receipt);
       } else {
-        console.log('selectedPayCurrency:', selectedPayCurrency)
         const amountIn = ethers.utils.parseEther(solzioAmount);
-        console.log('amountIn:', amountIn)
-        console.log('PATH:', path)
 
         const tokenAprroveTx = await tokenContract.approve(routerAddress, amountIn);
         const tokenAprroveTxReceipt = await tokenAprroveTx.wait();
-        console.log("DBAS Approve Transaction successful with hash:", tokenAprroveTxReceipt);
 
         const tx = await routerContract.swap(amountIn, amountOutMin, path, user, deadline, {
           maxPriorityFeePerGas: feeData["maxPriorityFeePerGas"],
@@ -119,14 +113,11 @@ const SwapInterface = ({ className }: { className: string }) => {
           gasLimit: "3000000",
         });
         const receipt = await tx.wait();
-        console.log("DBAS<>ETH swap Transaction successful with hash:", receipt);
       }
 
       //check balance after swap
       const ponzioContract = new ethers.Contract(tokenContractAddress, ponzioCatAbi, provider);
       const userPonzioBalance = await ponzioContract.balanceOf(user);
-      console.log("New DBAS Balance:", ethers.utils.formatEther(userPonzioBalance));
-
     } catch (error) {
       console.error("Error swapping tokens:", error);
     }
@@ -145,13 +136,11 @@ const SwapInterface = ({ className }: { className: string }) => {
       setEthAmount(value)
       const amountIn = ethers.utils.parseEther(ethAmount);
       const amountOut = await uniRouter.quote(amountIn,reserve.reserve0, reserve.reserve1);
-      console.log("AmountOut:", amountOut, ethers.utils.formatEther(amountOut));
       setSolzioAmount(ethers.utils.formatEther(amountOut));
     } else {
       setSolzioAmount(value)
       const amountIn = ethers.utils.parseEther(solzioAmount);
       const amountOut = await uniRouter.quote(amountIn,reserve.reserve1, reserve.reserve0);
-      console.log("AmountOut:", amountOut, ethers.utils.formatEther(amountOut));
       setEthAmount(ethers.utils.formatEther(amountOut));
     }
   }

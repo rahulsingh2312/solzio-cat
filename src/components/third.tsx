@@ -83,9 +83,7 @@ export default function ResponsiveSolzioDashboard() {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const contract = new ethers.Contract(tokenContractAddress, ponzioCatAbi, provider);
     const deployedTime = (await contract.DEPLOYED_TIME()).toString();
-    console.log("deployedTime", deployedTime)
     const currentTimeStamp = Math.floor((Date.now()/1000));
-    console.log("currentTimeStamp", currentTimeStamp)
     const nextDebaseIn = 2058-((currentTimeStamp - deployedTime)% 2058);
     convertSeconds(nextDebaseIn);
   }

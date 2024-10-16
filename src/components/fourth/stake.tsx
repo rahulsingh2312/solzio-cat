@@ -36,7 +36,6 @@ const StakeToMakeMoney = () => {
     const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi,signer);
     const lpApproveTx = await univ2Pair.approve(stakeContractAddress,userLp);
     const lpApproveTxReciept = await lpApproveTx.wait()
-    console.log("LP Stakecontract Approve successful with hash:", lpApproveTxReciept);
     const feeData = await provider.getFeeData();
     const depositTx = await stakeContract.deposit(userLp,signerAddress,{
           maxPriorityFeePerGas: feeData["maxPriorityFeePerGas"],
@@ -44,7 +43,6 @@ const StakeToMakeMoney = () => {
           gasLimit: "3000000",
     });
     const depositTxReciept = await depositTx.wait();
-    console.log('LP Stake successful with hash:',depositTxReciept)
   }
 
   const handleStakeWithdraw = async () => {
@@ -53,12 +51,9 @@ const StakeToMakeMoney = () => {
     const signerAddress = await signer.getAddress();
     const stakeContract = new ethers.Contract(stakeContractAddress, IStakeAbi, signer);
     const userInfo = await stakeContract.userInfo(signerAddress);
-    console.log('userInfo:',ethers.utils.formatEther(userInfo.amount))
     const withdrawTx = await stakeContract.withdraw(userInfo.amount, signerAddress);
     const withdrawTxReciept = await withdrawTx.wait();
-    console.log("Staked LP withdrawal successful:", withdrawTxReciept)
     const userInfoAfter = await stakeContract.userInfo(signerAddress);
-    console.log('userInfo After:',ethers.utils.formatEther(userInfoAfter.amount))
   }
 
   const handleHarvestRewards = async () => {
@@ -68,7 +63,6 @@ const StakeToMakeMoney = () => {
     const stakeContract = new ethers.Contract(stakeContractAddress, IStakeAbi, signer);
     const harvestTx = await stakeContract.harvest(signerAddress);
     const harvestTxReciept = await harvestTx.wait()
-    console.log("Harvest Succesful:",harvestTxReciept)
   }
 
   const handleReinvestRewards = async () => {
@@ -87,7 +81,6 @@ const StakeToMakeMoney = () => {
       value: amountEthRequired
     })
     const reinvestTxReciept = await reinvestTx.wait();
-    console.log("Reinvest sucess:", reinvestTxReciept)
   }
   const fetchPendingRewards = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);

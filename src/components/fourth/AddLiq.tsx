@@ -61,7 +61,6 @@ const AddLiquidity = () => {
     try {
       const tokenAprroveTx = await tokenContract.approve(routerAddress, amountPonzioDesired);
       const tokenAprroveTxReceipt = await tokenAprroveTx.wait();
-      console.log("DBAS Approve Transaction successful with hash:", tokenAprroveTxReceipt);
       const addLiquidityTx = await router.updateSupplyAndAddLiquidity(amountWETHDesired, amountPonzioDesired, amountETHMin, amountPonzioMin, to, {
           value: amountWETHDesired,
           maxPriorityFeePerGas: feeData["maxPriorityFeePerGas"],
@@ -69,7 +68,6 @@ const AddLiquidity = () => {
           gasLimit: "3000000",
       })
       const addLiquidityTxReciept = await tokenAprroveTx.wait();
-      console.log("LP Add successful with hash:", addLiquidityTxReciept);
     } catch (error) {
       console.error('Error adding liquidity:', error);
     }
@@ -98,7 +96,6 @@ const AddLiquidity = () => {
           gasLimit: "3000000",
       });
       const removeLiquidityTxReciept = await removeLiquidityTx.wait()
-      console.log("LP remove successful with hash:", removeLiquidityTxReciept);
         
     } catch (error) {
       console.error('Error removing liquidity:', error);
