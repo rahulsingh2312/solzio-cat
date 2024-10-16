@@ -13,7 +13,6 @@ import {
   uniRouterAddress,
   IUniswapV2RouterAbi
 } from '../../common/contract/contract';
-import { sign } from 'crypto';
 
 const AddLiquidity = () => {
   const { walletAddress } = useWallet(); // Get wallet address from context
@@ -27,8 +26,8 @@ const AddLiquidity = () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
     const reserve = await univ2Pair.getReserves();
-    setEthReserve(Number((ethers.utils.formatEther(reserve.reserve0))).toFixed(3))
-    setSolzioReserve(Number((ethers.utils.formatEther(reserve.reserve1))).toFixed(3))
+    setEthReserve(Number((ethers.utils.formatEther(reserve.reserve0))).toFixed(3));
+    setSolzioReserve(Number((ethers.utils.formatEther(reserve.reserve1))).toFixed(3));
   };
 
   const fetchLp = async () => {
@@ -50,31 +49,30 @@ const AddLiquidity = () => {
     const signer = provider.getSigner();
     const signerAddress = await signer.getAddress();
     const router = new ethers.Contract(routerAddress, routerAbi, signer);
-    const amountWETHDesired =  ethers.utils.parseEther(ethAmount)
-    const amountPonzioDesired  = ethers.utils.parseEther(tokenAmount)
-    const amountETHMin =  ethers.utils.parseEther('0')
-    const amountPonzioMin =  ethers.utils.parseEther('0')
-    const to =  signerAddress;
+    const amountWETHDesired = ethers.utils.parseEther(ethAmount);
+    const amountPonzioDesired = ethers.utils.parseEther(tokenAmount);
+    const amountETHMin = ethers.utils.parseEther('0');
+    const amountPonzioMin = ethers.utils.parseEther('0');
+    const to = signerAddress;
     const feeData = await provider.getFeeData();
     const tokenContract = new ethers.Contract(tokenContractAddress, IERC20Abi, signer);
 
     try {
-      const tokenAprroveTx = await tokenContract.approve(routerAddress, amountPonzioDesired);
-      const tokenAprroveTxReceipt = await tokenAprroveTx.wait();
+      const tokenApproveTx = await tokenContract.approve(routerAddress, amountPonzioDesired);
+      await tokenApproveTx.wait();
       const addLiquidityTx = await router.updateSupplyAndAddLiquidity(amountWETHDesired, amountPonzioDesired, amountETHMin, amountPonzioMin, to, {
-          value: amountWETHDesired,
-          maxPriorityFeePerGas: feeData["maxPriorityFeePerGas"],
-          maxFeePerGas: feeData["maxFeePerGas"],
-          gasLimit: "3000000",
-      })
-      const addLiquidityTxReciept = await tokenAprroveTx.wait();
+        value: amountWETHDesired,
+        maxPriorityFeePerGas: feeData["maxPriorityFeePerGas"],
+        maxFeePerGas: feeData["maxFeePerGas"],
+        gasLimit: "3000000",
+      });
+      await addLiquidityTx.wait();
     } catch (error) {
       console.error('Error adding liquidity:', error);
     }
   };
 
   const handleSubmitRemoveLiquidity = async (lpAmount) => {
-    
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const uniRouter = new ethers.Contract(uniRouterAddress, IUniswapV2RouterAbi, signer);
@@ -83,20 +81,19 @@ const AddLiquidity = () => {
     const liquidity = ethers.utils.parseEther(lpAmount);
     const amountTokenMin = ethers.utils.parseEther('0');
     const amountETHMin = ethers.utils.parseEther('0');
-    const to = await signer.getAddress()
+    const to = await signer.getAddress();
     const deadline = Math.floor(Date.now() / 1000) + 60 * 20;
-    const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi,signer);
+    const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, signer);
 
     try {
-      const lpApproveTx = await univ2Pair.approve(uniRouterAddress,liquidity);
-      const lpApproveTxReciept = await lpApproveTx.wait()
+      const lpApproveTx = await univ2Pair.approve(uniRouterAddress, liquidity);
+      await lpApproveTx.wait();
       const removeLiquidityTx = await uniRouter.removeLiquidityETH(token, liquidity, amountTokenMin, amountETHMin, to, deadline, {
         maxPriorityFeePerGas: feeData["maxPriorityFeePerGas"],
-          maxFeePerGas: feeData["maxFeePerGas"],
-          gasLimit: "3000000",
+        maxFeePerGas: feeData["maxFeePerGas"],
+        gasLimit: "3000000",
       });
-      const removeLiquidityTxReciept = await removeLiquidityTx.wait()
-        
+      await removeLiquidityTx.wait();
     } catch (error) {
       console.error('Error removing liquidity:', error);
     }
@@ -114,7 +111,7 @@ const AddLiquidity = () => {
       const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
       const reserve = await univ2Pair.getReserves();
       const ethInput = ethers.utils.parseEther(value);
-      const amountOut = await uniRouter.quote(ethInput,reserve.reserve0, reserve.reserve1);
+      const amountOut = await uniRouter.quote(ethInput, reserve.reserve0, reserve.reserve1);
       const dbasAmount = Number(ethers.utils.formatEther(amountOut)).toFixed(3);
       setDbasTokenAmount(dbasAmount);
     };
@@ -122,7 +119,6 @@ const AddLiquidity = () => {
     const handleSubmit = async (e) => {
       e.preventDefault();
       setLoading(true);
-
       try {
         await handleSubmitAddLiquidity(ethAmount, dbasTokenAmount); // Call the function
       } catch (error) {
@@ -181,13 +177,11 @@ const AddLiquidity = () => {
 
   const RemoveModal = ({ isOpen, onClose, title }) => {
     const [lpAmount, setLpAmount] = useState<string>('0');
-    const [dbasTokenAmount, setDbasTokenAmount] = useState<string>('0');
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
       e.preventDefault();
       setLoading(true);
-
       try {
         await handleSubmitRemoveLiquidity(lpAmount); // Call the function
       } catch (error) {
@@ -216,12 +210,6 @@ const AddLiquidity = () => {
                 required
               />
             </div>
-            <div className="mb-4">
-              <label className="block mb-2 text-sm font-medium">Token Amount</label>
-              <div className="border border-gray-300 rounded-lg w-full p-3 bg-gray-100 text-gray-700">
-                {dbasTokenAmount} DBAS {/* Display token amount */}
-              </div>
-            </div>
             <div className="flex justify-end">
               <button
                 type="button"
@@ -245,7 +233,7 @@ const AddLiquidity = () => {
   };
 
   return (
-    <div className="769:ml-20 1200:ml-0 mt-12 w-full md:w-[460px] text-xl font-sans border-[#bd8400] bg-[#FFD87F] border-4 rounded-lg max-w-m flex-col justify-between items-center mb-4">
+    <div className="mt-12 w-full md:w-[460px] text-xl font-sans border-[#bd8400] bg-[#FFD87F] border-4 rounded-lg max-w-m flex-col justify-between items-center mb-4">
       <h1 className="text-2xl font-bold text-center pt-4 mb-4">2. ADD LIQUIDITY</h1>
       <div className='bg-white p-5 border-[#bd8400] border-t-2 rounded-lg shadow-md w-full'>
         <div className="border-black border-2 p-6 rounded-xl">
@@ -263,24 +251,26 @@ const AddLiquidity = () => {
               <div>{getSolzioReserve} DBAS</div>
             </div>
           </div>
-          <div className='pl-[70px] md:pl-24 justify-center items-center'>
+          <div className="flex flex-col space-y-2 w-full">
             {walletAddress ? (
-              <div className="flex flex-col space-y-2">
+              <>
                 <button
                   onClick={() => setIsAddModalOpen(true)}
-                  className="bg-green-500 text-white py-2 px-4 rounded"
+                  className="w-full text-center text-xl bg-yellow-300 py-2 rounded-full"
                 >
                   Add Liquidity
                 </button>
                 <button
                   onClick={() => setIsRemoveModalOpen(true)}
-                  className="bg-red-500 text-white py-2 px-4 rounded"
+                  className="w-full text-center text-xl bg-yellow-500 py-2 rounded-full"
                 >
                   Remove Liquidity
                 </button>
-              </div>
+              </>
             ) : (
-              <WalletButton />
+              <div className='flex justify-center'>
+                <WalletButton />
+              </div>
             )}
           </div>
         </div>

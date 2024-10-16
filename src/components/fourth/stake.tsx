@@ -136,24 +136,26 @@ const StakeToMakeMoney = () => {
               <div className="text-lg text-gray-500">{getPendingRewards} DBAS</div>
             </div>
           </div>
-          <div className='pl-[70px]  md:pl-16 justify-center items-center'>
+          <div className='pl-[0px]  md:pl-0 justify-center items-center'>
           {walletAddress ? (
               <div className="flex flex-col space-y-2">
                 <button
                   onClick={() => handleHarvestRewards()}
-                  className="bg-green-500 text-white py-2 px-4 rounded"
+                  className="w-full text-center text-xl bg-yellow-300 py-2 rounded-full"
                 >
                   Harest Rewards
                 </button>
                 <button
                   onClick={() => handleReinvestRewards()}
-                  className="bg-red-500 text-white py-2 px-4 rounded"
+                  className="w-full text-center text-xl bg-yellow-500 py-2 rounded-full"
                 >
                   Reinvest Rewards
                 </button>
               </div>
             ) : (
-              <WalletButton />
+              <div className='flex justify-center'>
+                <WalletButton />
+              </div>
             )}
           </div>
         </div>
@@ -166,24 +168,26 @@ const StakeToMakeMoney = () => {
               <div className="text-sm text-gray-500">0.00 LP</div>
             </div>
           </div>
-            <div className='pl-[70px]  md:pl-16 justify-center items-center'>
+            <div className='pl-[0px]  md:pl-0 justify-center items-center'>
             {walletAddress ? (
               <div className="flex flex-col space-y-2">
                 <button
                   onClick={() => handleStakeDeposit()}
-                  className="bg-green-500 text-white py-2 px-4 rounded"
+                  className="w-full text-center text-xl bg-yellow-300 py-2 rounded-full"
                 >
                   Stake
                 </button>
                 <button
                   onClick={() => handleStakeWithdraw()}
-                  className="bg-red-500 text-white py-2 px-4 rounded"
+                  className="w-full text-center text-xl bg-yellow-500 py-2 rounded-full"
                 >
                   Withdraw
                 </button>
               </div>
             ) : (
-              <WalletButton />
+              <div className='flex justify-center'>
+                <WalletButton />
+              </div>
             )}
           </div>
         </div>

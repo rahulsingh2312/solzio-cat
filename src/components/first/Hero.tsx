@@ -25,25 +25,7 @@ export default function Hero() {
 
     initContract();
   }, [walletAddress]);
-    // Buy function
-    const buyTokens = async () => {
-      if (!contract) {
-        console.error('Contract not initialized.');
-        return;
-      }
-  
-      try {
-        // const tx = await contract.buy({ value: ethers.utils.parseEther("0.1") }); // Set amount as needed
-        // await tx.wait();
-      } catch (error) {
-        console.error('Transaction failed:', error);
-        toast({
-          variant: 'destructive',
-          title: 'Transaction failed!',
-          // description: `${error.message}`,
-        });
-      }
-    };
+   
   // Copy address to clipboard
 
   const copyAddress = () => {
@@ -176,13 +158,14 @@ export default function Hero() {
             </button>
           </div>
 
-          <button
-          onClick={buyTokens}
-          className="w-[165px] h-[60px] rounded-xl shadow border border-black bg-[#f47372] hover:bg-[#dc4d4d] transition-all duration-300">
+          <a
+            href='#buy'
+            className="flex justify-center items-center w-[165px] h-[60px] rounded-xl shadow border border-black bg-[#f47372] hover:bg-[#dc4d4d] transition-all duration-300"
+          >
             <div className="text-black text-lg sm:text-[22px] font-normal">
               Buy $DBAS
             </div>
-          </button>
+          </a>
         </div>
       </div>
     </main>
