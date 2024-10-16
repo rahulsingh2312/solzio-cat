@@ -120,7 +120,7 @@ export default function ResponsiveSolzioDashboard() {
           
           <div className="flex flex-col md:flex-row justify-between items-start gap-8">
             <div className="w-full md:w-2/3">
-            <iframe id="dextools-widget" title="DEXTools Trading Chart" className="w-full h-[500px] rounded-lg shadow-2xl" src="https://www.dextools.io/widget-chart/en/ether/pe-light/0x90908e414d3525e33733d320798b5681508255ea?theme=dark&amp;chartType=1&amp;chartResolution=30&amp;drawingToolbars=false"></iframe>
+            <iframe id="dextools-widget" title="DEXTools Trading Chart" className="w-full h-[500px] rounded-lg shadow-2xl" src="https://www.dextools.io/widget-chart/en/base/pe-light/0xE92455d9E8ce61b5BD1E28204C5361416C2D6e6a?theme=dark&amp;chartType=1&amp;chartResolution=30&amp;drawingToolbars=false"></iframe>
               {/* <Image src="/Body.svg" alt="chart" width={800} height={800} className="object-contain" /> */}
             </div>
             
