@@ -22,6 +22,7 @@ const StakeToMakeMoney = () => {
   const [getPendingRewards, setPendingRewards] = useState<string>('0');
 
   const fetchLp = async () => {
+     // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
     const userLp = await univ2Pair.balanceOf(walletAddress);
@@ -29,6 +30,7 @@ const StakeToMakeMoney = () => {
   };
 
   const handleStakeDeposit = async () => {
+     // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const signerAddress = await signer.getAddress();
@@ -36,7 +38,6 @@ const StakeToMakeMoney = () => {
     const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi,signer);
     const lpApproveTx = await univ2Pair.approve(stakeContractAddress,userLp);
     const lpApproveTxReciept = await lpApproveTx.wait()
-    console.log("LP Stakecontract Approve successful with hash:", lpApproveTxReciept);
     const feeData = await provider.getFeeData();
     const depositTx = await stakeContract.deposit(userLp,signerAddress,{
           maxPriorityFeePerGas: feeData["maxPriorityFeePerGas"],
@@ -44,34 +45,32 @@ const StakeToMakeMoney = () => {
           gasLimit: "3000000",
     });
     const depositTxReciept = await depositTx.wait();
-    console.log('LP Stake successful with hash:',depositTxReciept)
   }
 
   const handleStakeWithdraw = async () => {
+     // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const signerAddress = await signer.getAddress();
     const stakeContract = new ethers.Contract(stakeContractAddress, IStakeAbi, signer);
     const userInfo = await stakeContract.userInfo(signerAddress);
-    console.log('userInfo:',ethers.utils.formatEther(userInfo.amount))
     const withdrawTx = await stakeContract.withdraw(userInfo.amount, signerAddress);
     const withdrawTxReciept = await withdrawTx.wait();
-    console.log("Staked LP withdrawal successful:", withdrawTxReciept)
     const userInfoAfter = await stakeContract.userInfo(signerAddress);
-    console.log('userInfo After:',ethers.utils.formatEther(userInfoAfter.amount))
   }
 
   const handleHarvestRewards = async () => {
+     // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const signerAddress = await signer.getAddress();
     const stakeContract = new ethers.Contract(stakeContractAddress, IStakeAbi, signer);
     const harvestTx = await stakeContract.harvest(signerAddress);
     const harvestTxReciept = await harvestTx.wait()
-    console.log("Harvest Succesful:",harvestTxReciept)
   }
 
   const handleReinvestRewards = async () => {
+     // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const signerAddress = await signer.getAddress();
@@ -87,9 +86,9 @@ const StakeToMakeMoney = () => {
       value: amountEthRequired
     })
     const reinvestTxReciept = await reinvestTx.wait();
-    console.log("Reinvest sucess:", reinvestTxReciept)
   }
   const fetchPendingRewards = async () => {
+     // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const signerAddress = await signer.getAddress();
@@ -143,24 +142,26 @@ const StakeToMakeMoney = () => {
               <div className="text-lg text-gray-500">{getPendingRewards} DBAS</div>
             </div>
           </div>
-          <div className='pl-[70px]  md:pl-16 justify-center items-center'>
+          <div className='pl-[0px]  md:pl-0 justify-center items-center'>
           {walletAddress ? (
               <div className="flex flex-col space-y-2">
                 <button
                   onClick={() => handleHarvestRewards()}
-                  className="bg-green-500 text-white py-2 px-4 rounded"
+                  className="w-full text-center text-xl bg-yellow-300 py-2 rounded-full"
                 >
                   Harest Rewards
                 </button>
                 <button
                   onClick={() => handleReinvestRewards()}
-                  className="bg-red-500 text-white py-2 px-4 rounded"
+                  className="w-full text-center text-xl bg-yellow-500 py-2 rounded-full"
                 >
                   Reinvest Rewards
                 </button>
               </div>
             ) : (
-              <WalletButton />
+              <div className='flex justify-center'>
+                <WalletButton />
+              </div>
             )}
           </div>
         </div>
@@ -173,24 +174,26 @@ const StakeToMakeMoney = () => {
               <div className="text-sm text-gray-500">0.00 LP</div>
             </div>
           </div>
-            <div className='pl-[70px]  md:pl-16 justify-center items-center'>
+            <div className='pl-[0px]  md:pl-0 justify-center items-center'>
             {walletAddress ? (
               <div className="flex flex-col space-y-2">
                 <button
                   onClick={() => handleStakeDeposit()}
-                  className="bg-green-500 text-white py-2 px-4 rounded"
+                  className="w-full text-center text-xl bg-yellow-300 py-2 rounded-full"
                 >
                   Stake
                 </button>
                 <button
                   onClick={() => handleStakeWithdraw()}
-                  className="bg-red-500 text-white py-2 px-4 rounded"
+                  className="w-full text-center text-xl bg-yellow-500 py-2 rounded-full"
                 >
                   Withdraw
                 </button>
               </div>
             ) : (
-              <WalletButton />
+              <div className='flex justify-center'>
+                <WalletButton />
+              </div>
             )}
           </div>
         </div>
