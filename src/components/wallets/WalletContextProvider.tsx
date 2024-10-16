@@ -23,7 +23,7 @@ export const WalletProvider: FC<{ children: React.ReactNode }> = ({ children }) 
         console.error('Failed to connect wallet:', error);
       }
     } else {
-      console.log('Please install MetaMask!');
+      console.error('Please install MetaMask!');
     }
   };
 
