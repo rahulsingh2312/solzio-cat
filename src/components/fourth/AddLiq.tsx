@@ -23,6 +23,7 @@ const AddLiquidity = () => {
   const [isRemoveModalOpen, setIsRemoveModalOpen] = useState(false);
 
   const getReserves = async () => {
+    // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
     const reserve = await univ2Pair.getReserves();
@@ -31,6 +32,7 @@ const AddLiquidity = () => {
   };
 
   const fetchLp = async () => {
+     // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
     const userLp = Number((ethers.utils.formatEther(await univ2Pair.balanceOf(walletAddress)))).toFixed(3);
@@ -43,8 +45,9 @@ const AddLiquidity = () => {
       fetchLp();
     }
   }, [walletAddress]);
-
+ // @ts-ignore
   const handleSubmitAddLiquidity = async (ethAmount, tokenAmount) => {
+     // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const signerAddress = await signer.getAddress();
@@ -71,8 +74,9 @@ const AddLiquidity = () => {
       console.error('Error adding liquidity:', error);
     }
   };
-
+ // @ts-ignore
   const handleSubmitRemoveLiquidity = async (lpAmount) => {
+     // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const uniRouter = new ethers.Contract(uniRouterAddress, IUniswapV2RouterAbi, signer);
@@ -98,14 +102,15 @@ const AddLiquidity = () => {
       console.error('Error removing liquidity:', error);
     }
   };
-
+ // @ts-ignore
   const AddModal = ({ isOpen, onClose, title }) => {
     const [ethAmount, setEthAmount] = useState<string>('0');
     const [dbasTokenAmount, setDbasTokenAmount] = useState<string>('0');
     const [loading, setLoading] = useState(false);
-
+ // @ts-ignore
     const handleInput = async (value) => {
       setEthAmount(value);
+       // @ts-ignore
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       const uniRouter = new ethers.Contract(uniRouterAddress, IUniswapV2RouterAbi, provider);
       const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
@@ -115,7 +120,7 @@ const AddLiquidity = () => {
       const dbasAmount = Number(ethers.utils.formatEther(amountOut)).toFixed(3);
       setDbasTokenAmount(dbasAmount);
     };
-
+ // @ts-ignore
     const handleSubmit = async (e) => {
       e.preventDefault();
       setLoading(true);
@@ -174,11 +179,11 @@ const AddLiquidity = () => {
       </div>
     );
   };
-
+ // @ts-ignore
   const RemoveModal = ({ isOpen, onClose, title }) => {
     const [lpAmount, setLpAmount] = useState<string>('0');
     const [loading, setLoading] = useState(false);
-
+ // @ts-ignore
     const handleSubmit = async (e) => {
       e.preventDefault();
       setLoading(true);

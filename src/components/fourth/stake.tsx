@@ -22,6 +22,7 @@ const StakeToMakeMoney = () => {
   const [getPendingRewards, setPendingRewards] = useState<string>('0');
 
   const fetchLp = async () => {
+     // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const univ2Pair = new ethers.Contract(univ2PairAddress, IUniswapV2PairAbi, provider);
     const userLp = await univ2Pair.balanceOf(walletAddress);
@@ -29,6 +30,7 @@ const StakeToMakeMoney = () => {
   };
 
   const handleStakeDeposit = async () => {
+     // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const signerAddress = await signer.getAddress();
@@ -46,6 +48,7 @@ const StakeToMakeMoney = () => {
   }
 
   const handleStakeWithdraw = async () => {
+     // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const signerAddress = await signer.getAddress();
@@ -57,6 +60,7 @@ const StakeToMakeMoney = () => {
   }
 
   const handleHarvestRewards = async () => {
+     // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const signerAddress = await signer.getAddress();
@@ -66,6 +70,7 @@ const StakeToMakeMoney = () => {
   }
 
   const handleReinvestRewards = async () => {
+     // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const signerAddress = await signer.getAddress();
@@ -83,6 +88,7 @@ const StakeToMakeMoney = () => {
     const reinvestTxReciept = await reinvestTx.wait();
   }
   const fetchPendingRewards = async () => {
+     // @ts-ignore
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const signerAddress = await signer.getAddress();
